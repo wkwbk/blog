@@ -1488,7 +1488,7 @@ figure.highlight .shrink-line::before {
   font-weight: 600;
   font-size: 1rem;
   font-family: 'Font Awesome 6 Free';
-  content: '\f078';
+  content: '\f103';
 }
 figure.highlight .shrink-line:hover::before {
   font-size: 1.1rem;
@@ -3396,24 +3396,8 @@ figure.highlight .shrink-line:hover::before {
 .post-meta-info-container .post-meta-info .post-create-date {
   display: var(--post-create-datetime);
 }
-.post-meta-info-container .post-meta-info .post-create-date .mobile {
-  display: none;
-}
-@media (max-width: 800px) {
-  .post-meta-info-container .post-meta-info .post-create-date .pc {
-    display: none;
-  }
-  .post-meta-info-container .post-meta-info .post-create-date .mobile {
-    display: inline-block;
-  }
-}
 .post-meta-info-container .post-meta-info .post-update-date {
   display: var(--post-update-datetime);
-}
-@media (max-width: 800px) {
-  .post-meta-info-container .post-meta-info .post-update-date {
-    display: none;
-  }
 }
 .post-meta-info-container .post-meta-info .post-category {
   word-spacing: 0;
