@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="个人博客,个人网站,无可无不可,lisir,wkwbk,Blog,Hexo,Markdown">
+    <meta name="description" content="记住，你什么都不缺，你缺的是从头再来的勇气">
+    <meta name="author" content="LI SIR">
+    
+    <title>
+        
+            标签: 数据库 |
+        
+        LI SIR - Remember me.
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="https://img.wkwbk.eu.org/i/favicon.png">
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/font/css/brands.min.css">
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"blog.lisir.me","root":"/","language":"zh-CN","path":"search.json"}
+    KEEP.theme_config = {"base_info":{"primary_color":"#0066CC","title":"LI SIR - Remember me.","author":"LI SIR","avatar":"https://img.wkwbk.eu.org/i/avatar.png","logo":"https://img.wkwbk.eu.org/i/favicon.png","favicon":"https://img.wkwbk.eu.org/i/favicon.png"},"menu":{"Archives":"/archives","Tags":"/tags","Categories":"/categories","Links":"/links","About":"https://lisir.me/"},"first_screen":{"enable":true,"background_img":"https://img.wkwbk.eu.org/PicX/bg.svg","background_img_dark":"https://img.wkwbk.eu.org/PicX/bg.svg","description":"我亦无他，惟手熟尔","hitokoto":false},"social_contact":{"enable":true,"links":{"github":"https://github.com/wkwbk","email":"lisir.me@qq.com","telegram":"https://t.me/zvzsu","weixin":null,"qq":null,"weibo":null,"zhihu":null,"twitter":null,"facebook":null}},"scroll":{"progress_bar":true,"percent":true,"hide_header":true},"home":{"category":true,"tag":true,"announcement":"2023年12月24日：主题已更新至最新"},"post":{"author_badge":{"enable":true,"level_badge":true,"custom_badge":["One","Two","Three"]},"word_count":{"wordcount":true,"min2read":true},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":true,"share":true,"reward":{"enable":false,"img_link":null,"text":null}},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"obsidian"},"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true,"layout":"right"},"website_count":{"busuanzi_count":{"enable":true,"site_uv":true,"site_pv":true,"page_pv":true}},"local_search":{"enable":true,"preload":true},"comment":{"enable":true,"use":"twikoo","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":"https://twikoo.wkwbk.eu.org/","region":null,"version":"1.6.29"},"waline":{"server_url":null,"reaction":false,"version":2},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false},"artalk":{"server":null},"disqus":{"shortname":null}},"rss":{"enable":true},"lazyload":{"enable":true},"cdn":{"enable":true,"provider":"jsdelivr"},"pjax":{"enable":true},"footer":{"since":2020,"word_count":true,"icp":{"enable":false,"record_code":null,"url":"https://beian.miit.gov.cn"},"site_deploy":{"enable":true,"provider":"github","url":null},"shields_style":{"enable":true,"custom":[{"link_url":null,"img_url":null}]}},"inject":{"enable":false,"css":[null],"js":[null]},"root":"","links":[{"title":"推荐博客"},{"name":"Heo","link":"https://blog.zhheo.com","avatar":"https://blog.zhheo.com/img/avatar.png","description":"爱折腾的设计师"},{"name":"Akilarの糖果屋","link":"https://akilar.top","avatar":"https://npm.elemecdn.com/akilar-candyassets/image/siteicon/favicon.png","description":"期待您的光临!"},{"title":"小伙伴们"},{"name":"贰猹的小窝","link":"https://noionion.top","avatar":"https://pub-noionion.oss-cn-hangzhou.aliyuncs.com/head.jpg","description":"用这生命中的每一秒，给自己一个不后悔的未来"},{"name":"Sianx's Blog","link":"https://sianx.com","avatar":"https://npm.elemecdn.com/picture-sianx@1.0.0/Blog/logo.png","description":"总之岁月漫长, 然而值得等待。"},{"name":"Ordis","link":"https://imbhj.com","avatar":"https://imbhj.com/img/avatar1.png","description":"船到桥头自然直，柳暗花明又一村"},{"name":"小孙同学","link":"https://blog.sunguoqi.com/","avatar":"https://blog.sunguoqi.com/images/avatar.jpg","description":"热爱可抵漫长岁月！"},{"name":"不如吃茶去","link":"http://www.zsqblog.top","avatar":"https://pic.imgdb.cn/item/61d9d0022ab3f51d9156c5eb.jpg","description":"I can do all things…"},{"name":"二兔","link":"https://blog.juanertu.com","avatar":"https://blog.juanertu.com/images/avatar.png","description":"能与你一起成长，我荣幸之至。"},{"name":"瑾年","link":"https://www.zhoudongqi.com","avatar":"https://www.zhoudongqi.com/touxiang.png","description":"徘踏春色并好友，驱驰十里赏青丘"},{"name":"小嘉的部落格","link":"https://blog.imzjw.cn","avatar":"https://npm.elemecdn.com/nanshen/avatar.jpg","description":"一个爱折腾的Java开发工程师"},{"name":"Joyer的博客","link":"https://blog.joyer.top","avatar":"https://blog.joyer.top/img/favicon.png","description":"一只会唱Lahee~的龙"},{"name":"圣奇宝枣的博客小站","link":"https://shengqibaozao.eu.org","avatar":"https://cdn.jsdelivr.net/gh/ShengQiBaoZao/Image/info/user.png","description":"有朋自远方来，不亦乐乎，愿与你相识，得闲饮茶"}],"version":"4.0.5"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="LI SIR" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+<main class="page-container border-box">
+
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="https://img.wkwbk.eu.org/i/favicon.png">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               LI SIR - Remember me.
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc">
+                <ul class="menu-list">
+                    <li class="menu-item">
+                        <a class=""
+                           href="/"
+                        >首页</a>
+                    </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >归档</a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class="active"
+                               href="/tags"
+                            >标签</a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >分类</a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >友链</a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://lisir.me/"
+                            >关于</a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas search fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            <li class="drawer-menu-item flex-center">
+                <a class=""
+                   href="/"
+                >首页</a>
+            </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives"
+                    >归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="active"
+                       href="/tags"
+                    >标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories"
+                    >分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links"
+                    >友链</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://lisir.me/"
+                    >关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+                
+
+                    <div class="fade-in-down-animation">
+    <div class="tag-container border-box">
+        <div class="tag-name"><i class="fas fa-hashtag"></i>&nbsp;数据库
+        </div>
+        <div class="tag-post-list">
+            
+<div class="archive-list-container border-box">
+    
+        <section class="archive-item border-box">
+            <div class="archive-item-header border-box">
+                <span class="archive-year">2023</span>
+            </div>
+            <ul class="archive-item-body border-box">
+                
+                    <li class="post-item border-box">
+                        <span class="post-date border-box">04-05</span>
+                        <a class="post-title border-box text-ellipsis"
+                           href="/posts/a1f6b007/"
+                        >软件设计师 | 数据库</a>
+                    </li>
+                
+            </ul>
+        </section>
+    
+</div>
+
+        </div>
+    </div>
+    
+
+
+
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="border-box website-info-box shields">
+        
+            <div class="info-item">
+                
+                <a class="shields-item">
+                    <img src="https://img.shields.io/badge/Since-2020_--_2024-dodgerblue?style=flat-square">
+                </a>
+                
+                    <a class="shields-item" href="/">
+                        <img src="https://img.shields.io/badge/WebMaster-LI SIR-dodgerblue?style=flat-square">
+                    </a>
+                
+                
+                <a class="shields-item" href="https://hexo.io" target="_blank">
+                    <img src="https://img.shields.io/badge/Powered_by-Hexo-dodgerblue?style=flat-square">
+                </a>
+                <a class="shields-item" href="https://github.com/XPoet/hexo-theme-keep" target="_blank">
+                    <img class="shields-keep-version" src="https://img.shields.io/badge/Theme-Keep-dodgerblue?style=flat-square">
+                </a>
+                
+                    <a class="shields-item no-pointer"
+                       target="_blank"
+                       rel="nofollow"
+                       href=""
+                    >
+                        <img src="https://img.shields.io/badge/Deploy_in-GitHub Pages-dodgerblue?style=flat-square">
+                    </a>
+                
+            </div>
+            
+                <div class="info-item">
+                    
+                        
+                    
+                </div>
+            
+        
+
+        <div class="count-item info-item shields">
+            
+                <span class="count-box border-box word">
+                    <span class="item-type border-box">总字数</span>
+                    <span class="item-value border-box word">114.6k</span>
+                </span>
+            
+
+            
+                <span class="count-box border-box uv">
+                    <span class="item-type border-box">访客数</span>
+                    <span class="item-value border-box uv" id="busuanzi_value_site_uv"></span>
+                </span>
+            
+
+            
+                <span class="count-box border-box pv">
+                    <span class="item-type border-box">访问量</span>
+                    <span class="item-value border-box pv" id="busuanzi_value_site_pv"></span>
+                </span>
+            
+        </div>
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-toggle-theme-mode flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+</main>
+
+
+
+<!-- common -->
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/toggle-theme.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/code-block.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/libs/anime.min.js"></script>
+
+<!-- local-search -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/local-search.js"></script>
+
+
+<!-- lazyload -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/lazyload.js"></script>
+
+
+<div class="pjax">
+    
+
+    <!-- category-page -->
+    
+
+    <!-- links-page -->
+    
+
+    <!-- photos-page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart()
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd()
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'))
+            KEEP.initExecute()
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

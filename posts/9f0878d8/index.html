@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="个人博客,个人网站,无可无不可,lisir,wkwbk,Blog,Hexo,Markdown">
+    <meta name="description" content="记住，你什么都不缺，你缺的是从头再来的勇气">
+    <meta name="author" content="LI SIR">
+    
+    <title>
+        
+            Java | 常用类 |
+        
+        LI SIR - Remember me.
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="https://img.wkwbk.eu.org/i/favicon.png">
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/font/css/brands.min.css">
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"blog.lisir.me","root":"/","language":"zh-CN","path":"search.json"}
+    KEEP.theme_config = {"base_info":{"primary_color":"#0066CC","title":"LI SIR - Remember me.","author":"LI SIR","avatar":"https://img.wkwbk.eu.org/i/avatar.png","logo":"https://img.wkwbk.eu.org/i/favicon.png","favicon":"https://img.wkwbk.eu.org/i/favicon.png"},"menu":{"Archives":"/archives","Tags":"/tags","Categories":"/categories","Links":"/links","About":"https://lisir.me/"},"first_screen":{"enable":true,"background_img":"https://img.wkwbk.eu.org/PicX/bg.svg","background_img_dark":"https://img.wkwbk.eu.org/PicX/bg.svg","description":"我亦无他，惟手熟尔","hitokoto":false},"social_contact":{"enable":true,"links":{"github":"https://github.com/wkwbk","email":"lisir.me@qq.com","telegram":"https://t.me/zvzsu","weixin":null,"qq":null,"weibo":null,"zhihu":null,"twitter":null,"facebook":null}},"scroll":{"progress_bar":true,"percent":true,"hide_header":true},"home":{"category":true,"tag":true,"announcement":"2023年12月24日：主题已更新至最新"},"post":{"author_badge":{"enable":true,"level_badge":true,"custom_badge":["One","Two","Three"]},"word_count":{"wordcount":true,"min2read":true},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":true,"share":true,"reward":{"enable":false,"img_link":null,"text":null}},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"obsidian"},"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true,"layout":"right"},"website_count":{"busuanzi_count":{"enable":true,"site_uv":true,"site_pv":true,"page_pv":true}},"local_search":{"enable":true,"preload":true},"comment":{"enable":true,"use":"twikoo","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":"https://twikoo.wkwbk.eu.org/","region":null,"version":"1.6.29"},"waline":{"server_url":null,"reaction":false,"version":2},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false},"artalk":{"server":null},"disqus":{"shortname":null}},"rss":{"enable":true},"lazyload":{"enable":true},"cdn":{"enable":true,"provider":"jsdelivr"},"pjax":{"enable":true},"footer":{"since":2020,"word_count":true,"icp":{"enable":false,"record_code":null,"url":"https://beian.miit.gov.cn"},"site_deploy":{"enable":true,"provider":"github","url":null},"shields_style":{"enable":true,"custom":[{"link_url":null,"img_url":null}]}},"inject":{"enable":false,"css":[null],"js":[null]},"root":"","links":[{"title":"推荐博客"},{"name":"Heo","link":"https://blog.zhheo.com","avatar":"https://blog.zhheo.com/img/avatar.png","description":"爱折腾的设计师"},{"name":"Akilarの糖果屋","link":"https://akilar.top","avatar":"https://npm.elemecdn.com/akilar-candyassets/image/siteicon/favicon.png","description":"期待您的光临!"},{"title":"小伙伴们"},{"name":"贰猹的小窝","link":"https://noionion.top","avatar":"https://pub-noionion.oss-cn-hangzhou.aliyuncs.com/head.jpg","description":"用这生命中的每一秒，给自己一个不后悔的未来"},{"name":"Sianx's Blog","link":"https://sianx.com","avatar":"https://npm.elemecdn.com/picture-sianx@1.0.0/Blog/logo.png","description":"总之岁月漫长, 然而值得等待。"},{"name":"Ordis","link":"https://imbhj.com","avatar":"https://imbhj.com/img/avatar1.png","description":"船到桥头自然直，柳暗花明又一村"},{"name":"小孙同学","link":"https://blog.sunguoqi.com/","avatar":"https://blog.sunguoqi.com/images/avatar.jpg","description":"热爱可抵漫长岁月！"},{"name":"不如吃茶去","link":"http://www.zsqblog.top","avatar":"https://pic.imgdb.cn/item/61d9d0022ab3f51d9156c5eb.jpg","description":"I can do all things…"},{"name":"二兔","link":"https://blog.juanertu.com","avatar":"https://blog.juanertu.com/images/avatar.png","description":"能与你一起成长，我荣幸之至。"},{"name":"瑾年","link":"https://www.zhoudongqi.com","avatar":"https://www.zhoudongqi.com/touxiang.png","description":"徘踏春色并好友，驱驰十里赏青丘"},{"name":"小嘉的部落格","link":"https://blog.imzjw.cn","avatar":"https://npm.elemecdn.com/nanshen/avatar.jpg","description":"一个爱折腾的Java开发工程师"},{"name":"Joyer的博客","link":"https://blog.joyer.top","avatar":"https://blog.joyer.top/img/favicon.png","description":"一只会唱Lahee~的龙"},{"name":"圣奇宝枣的博客小站","link":"https://shengqibaozao.eu.org","avatar":"https://cdn.jsdelivr.net/gh/ShengQiBaoZao/Image/info/user.png","description":"有朋自远方来，不亦乐乎，愿与你相识，得闲饮茶"}],"version":"4.0.5"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="LI SIR" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+<main class="page-container border-box">
+
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="https://img.wkwbk.eu.org/i/favicon.png">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               LI SIR - Remember me.
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc">
+                <ul class="menu-list">
+                    <li class="menu-item">
+                        <a class=""
+                           href="/"
+                        >首页</a>
+                    </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >归档</a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >标签</a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >分类</a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >友链</a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://lisir.me/"
+                            >关于</a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas search fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            <li class="drawer-menu-item flex-center">
+                <a class=""
+                   href="/"
+                >首页</a>
+            </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives"
+                    >归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags"
+                    >标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories"
+                    >分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links"
+                    >友链</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://lisir.me/"
+                    >关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+                
+
+                    
+<div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+        <div class="post-content-container border-box">
+            
+
+            <div class="post-content-bottom border-box">
+                
+                    <div class="post-title">
+                        Java | 常用类
+                    </div>
+                
+
+                
+                    <div class="post-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="https://img.wkwbk.eu.org/i/avatar.png">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author border-box">
+                                <span class="name">LI SIR</span>
+                                
+                                    <span class="author-badge">Lv4</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="post-meta-info-container border-box post">
+    <div class="post-meta-info border-box">
+        
+
+        
+            <span class="meta-info-item post-create-date">
+                <i class="icon fa-solid fa-calendar-check"></i>&nbsp;
+                <span class="pc">2023-04-29 16:25:57</span>
+                <span class="mobile">2023-04-29 16:25</span>
+            </span>
+
+            <span class="meta-info-item post-update-date">
+                <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                <span class="pc" data-updated="Mon May 01 2023 19:38:46 GMT+0800">2023-05-01 19:38:46</span>
+            </span>
+        
+
+        
+            <span class="meta-info-item post-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="post-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+            <span class="post-tag meta-info-item border-box">
+                <i class="icon fas fa-tags"></i>&nbsp;
+                <ul class="post-tag-ul">
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/Java/">Java</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+        
+            <span class="meta-info-item post-wordcount">
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>2.7k 字</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-min2read">
+                <i class="icon fas fa-clock"></i>&nbsp;<span>11 分钟</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-pv">
+                <i class="icon fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="post-content keep-markdown-body">
+                    
+
+                    <p>Java 的常用类有包装类、字符串类、Math 类、Arrays 类、System 类、大数字类、日期类。</p>
+<span id="more"></span>
+
+<hr>
+<h2 id="包装类"><a href="#包装类" class="headerlink" title="包装类"></a>包装类</h2><p>Java 有 8 种基本数据类型，Java 中的每个基本数据类型都被包装成了一个类，这些类被称为包装类。</p>
+<p><strong>包装类可以分为 3 类：</strong><code>Number</code>、<code>Character</code>、<code>Boolean</code>。</p>
+<p><strong>包装类的架构图如下所示：</strong></p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://img.wkwbk.eu.org/PicGo/posts/9f0878d8/20230429180045.png"
+                        alt="20230429180045"
+                 ></p>
+<table>
+<thead>
+<tr>
+<th align="center">基本数据类型</th>
+<th align="center">对应的包装类</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">boolean</td>
+<td align="center">Boolean</td>
+</tr>
+<tr>
+<td align="center">char</td>
+<td align="center">Character</td>
+</tr>
+<tr>
+<td align="center">byte</td>
+<td align="center">Byte</td>
+</tr>
+<tr>
+<td align="center">short</td>
+<td align="center">Short</td>
+</tr>
+<tr>
+<td align="center">int</td>
+<td align="center">Integer</td>
+</tr>
+<tr>
+<td align="center">long</td>
+<td align="center">Long</td>
+</tr>
+<tr>
+<td align="center">float</td>
+<td align="center">Float</td>
+</tr>
+<tr>
+<td align="center">double</td>
+<td align="center">Double</td>
+</tr>
+</tbody></table>
+<p>除了 <code>int</code> 对应的包装类名称为 <code>Integer</code> 以及 <code>char</code> 对应的包装类名称 <code>Character</code>，其他 6 种数据类型对应的包装类，命名都为其基本数据类型的首字母的大写。</p>
+<h3 id="装箱和拆箱"><a href="#装箱和拆箱" class="headerlink" title="装箱和拆箱"></a>装箱和拆箱</h3><p><strong>什么是装箱和拆箱：</strong></p>
+<ul>
+<li><p>装箱就是基本数据类型向包装类转换。</p>
+</li>
+<li><p>拆箱就是包装类向基本数据类型转换。</p>
+</li>
+<li><p>装箱和拆箱又有自动和手动之分。</p>
+</li>
+</ul>
+<p>jdk 5 以前需要手动装箱和手段拆箱，jdk 5 以后（含 jdk 5）实现了自动装箱和自动拆箱。</p>
+<p><strong>手动装箱和拆箱：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">n1</span> <span class="operator">=</span> <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 手动装箱 int -&gt; Integer</span></span><br><span class="line">        <span class="type">Integer</span> <span class="variable">integer</span> <span class="operator">=</span> Integer.valueOf(n1); <span class="comment">// Integer integer = new Integer(n1);</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 手动拆箱 Integer -&gt; int</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">n2</span> <span class="operator">=</span> integer.intValue();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>自动装箱和拆箱：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">n1</span> <span class="operator">=</span> <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 自动装箱 int -&gt; Integer 底层仍然是使用 valueOf() 方法</span></span><br><span class="line">        <span class="type">Integer</span> <span class="variable">integer</span> <span class="operator">=</span> n1;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 自动拆箱 Integer -&gt; int 底层仍然是使用 intValue() 方法</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">n2</span> <span class="operator">=</span> integer;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="包装类常用方法"><a href="#包装类常用方法" class="headerlink" title="包装类常用方法"></a>包装类常用方法</h3><p><strong>包装类和 String 类型的相互转换：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 包装类（Integer） -&gt; String</span></span><br><span class="line">        <span class="comment">// 其他包装类方法类似</span></span><br><span class="line">        <span class="type">Integer</span> <span class="variable">n1</span> <span class="operator">=</span> <span class="number">100</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">str1</span> <span class="operator">=</span> n1 + <span class="string">&quot;&quot;</span>; <span class="comment">// 方式一</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">str2</span> <span class="operator">=</span> n1.toString(); <span class="comment">// 方式二</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">str3</span> <span class="operator">=</span> String.valueOf(n1); <span class="comment">// 方式三</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// String -&gt; 包装类（Integer）</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">str4</span> <span class="operator">=</span> <span class="string">&quot;1234&quot;</span>;</span><br><span class="line">        <span class="type">Integer</span> <span class="variable">n2</span> <span class="operator">=</span> Integer.parseInt(str4); <span class="comment">// 方法一</span></span><br><span class="line">        <span class="type">Integer</span> <span class="variable">n3</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Integer</span>(str4); <span class="comment">// 方法二</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="字符串类"><a href="#字符串类" class="headerlink" title="字符串类"></a>字符串类</h2><p>在 Java 中字符串属于对象，Java 提供了 String、StringBuffer 和 StringBuilder 三种类来创建和操作字符串。</p>
+<p><strong>字符串的基本概念：</strong></p>
+<ul>
+<li><p>字符串常量就是双引号括起的字符序列。</p>
+</li>
+<li><p>字符串的字符使用 Unicode 字符编码，一个字符（不区分字母还是汉字）占两个字节。</p>
+</li>
+</ul>
+<p><strong>三种字符串类的共同点：</strong></p>
+<ul>
+<li><p>都由 final 修饰，即都不能被其他的类继承。</p>
+</li>
+<li><p>都实现了 CharSequence 接口。</p>
+</li>
+<li><p>都实现了 Serializable 接口，可以串行化即可以在网络传输。</p>
+</li>
+</ul>
+<p><strong>三种字符串类的效率比较：</strong></p>
+<p>一般情况下 StringBuilder &gt; StringBuffer &gt; String，当然这是相对的，不是绝对的。</p>
+<p><strong>三种字符串类的使用的原则：</strong></p>
+<p>如果字符串存在大量的修改操作，一般使用 StringBuffer 或 StringBuilder，并在单线程的情况，使用 StringBuilder，多线程的情况，使用 StringBuffer。如果我们字符串很少修改，且被多个对象引用，则使用 String，例如配置信息等。</p>
+<h3 id="String-类"><a href="#String-类" class="headerlink" title="String 类"></a>String 类</h3><ul>
+<li><p>String 类是不可变字符串类，效率较低，但是复用率高。</p>
+</li>
+<li><p>String 类实现了 Comparable 接口，对象可以比较大小。</p>
+</li>
+<li><p>String 类是不可变的，对 String 对象进行任何操作，其实都是创建一个新的对象，再把引用指向该对象，效率较低。</p>
+</li>
+</ul>
+<p><strong>两种创建 String 对象的区别：</strong></p>
+<ol>
+<li><p>直接赋值：<code>String str = &quot;abc&quot;;</code></p>
+<p> 先从常量池查看是否有 <code>&quot;abc&quot;</code> 数据空间，如果有，直接指向，如果没有则重新创建，然后指向。<code>str</code> 最终指向的是常量池中 <code>&quot;abc&quot;</code> 的地址。</p>
+</li>
+<li><p>调用构造器：<code>String str = new String(&quot;abc&quot;);</code></p>
+<p> 先在堆中分配对象所需内存空间，里面有 <code>value</code> 属性，并指向常量池中 <code>&quot;abc&quot;</code> 的地址。如果常量池没有 <code>&quot;abc&quot;</code>，则重新创建，如果有，直接通过 <code>value</code> 指向。<code>str</code> 最终指向的是堆中的空间地址。</p>
+</li>
+</ol>
+<p><strong>String 类常用方法：</strong></p>
+<table>
+<thead>
+<tr>
+<th>方法名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>equals()</code></td>
+<td>判断内容是否相等（区分大小写）</td>
+</tr>
+<tr>
+<td><code>equalsIgnoreCase()</code></td>
+<td>判断内容是否相等（忽略大小写）</td>
+</tr>
+<tr>
+<td><code>length()</code></td>
+<td>获取字符的个数，字符串的长度</td>
+</tr>
+<tr>
+<td><code>indexOf()</code></td>
+<td>获取字符在字符串中第一次出现的索引，索引从 0 开始，如果找不到，返回 -1</td>
+</tr>
+<tr>
+<td><code>lastIndexOf()</code></td>
+<td>获取字符在字符串中最后一次出现的索引，索引从 0 开始，如果找不到，返回 -1</td>
+</tr>
+<tr>
+<td><code>substring()</code></td>
+<td>截取指定范围的子串</td>
+</tr>
+<tr>
+<td><code>trim()</code></td>
+<td>去前后空格</td>
+</tr>
+<tr>
+<td><code>charAt()</code></td>
+<td>获取某索引处的字符，注意不能使用数组下标这种方式</td>
+</tr>
+<tr>
+<td><code>toUpperCase()</code></td>
+<td>把字符串转换为大写</td>
+</tr>
+<tr>
+<td><code>toLowerCase()</code></td>
+<td>把字符串转换为小写</td>
+</tr>
+<tr>
+<td><code>concat()</code></td>
+<td>拼接字符</td>
+</tr>
+<tr>
+<td><code>replace()</code></td>
+<td>替换字符串中的字符</td>
+</tr>
+<tr>
+<td><code>split()</code></td>
+<td>分割字符串</td>
+</tr>
+<tr>
+<td><code>toCharArray()</code></td>
+<td>转换成字符数组</td>
+</tr>
+<tr>
+<td><code>compareTo()</code></td>
+<td>比较两个字符串的大小，前者大则返回正数，后者大则返回负数，相等则返回 0</td>
+</tr>
+<tr>
+<td><code>String.format()</code></td>
+<td>格式化的字符串</td>
+</tr>
+</tbody></table>
+<h3 id="StringBuffer-类"><a href="#StringBuffer-类" class="headerlink" title="StringBuffer 类"></a>StringBuffer 类</h3><ul>
+<li><p>StringBuffer 类是可变字符串类，效率较高，线程安全。</p>
+</li>
+<li><p>StringBuffer 类的直接父类是 AbstractStringBuilder。</p>
+</li>
+<li><p>StringBuffer 对象保存的是字符串变量，里面的值可以更改，每次 StringBuffer 对象的更新实际上可以更新内容，不用每次都创建新对象，效率较高</p>
+</li>
+</ul>
+<p><strong>String 和 StringBuffer 类的相互转换：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// String -&gt; StringBuffer</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">str1</span> <span class="operator">=</span> <span class="string">&quot;Hello World!&quot;</span>;</span><br><span class="line">        <span class="comment">// 方式一：使用构造器</span></span><br><span class="line">        <span class="type">StringBuffer</span> <span class="variable">stringBuffer1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuffer</span>(str1);</span><br><span class="line">        <span class="comment">// 方式二：使用 append 方法</span></span><br><span class="line">        <span class="type">StringBuffer</span> <span class="variable">stringBuffer2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuffer</span>();</span><br><span class="line">        stringBuffer1.append(str1);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// StringBuffer -&gt; String</span></span><br><span class="line">        <span class="type">StringBuffer</span> <span class="variable">stringBuffer3</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuffer</span>(<span class="string">&quot;Hello World!&quot;</span>);</span><br><span class="line">        <span class="comment">// 方式一：使用构造器</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">str2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(stringBuffer3);</span><br><span class="line">        <span class="comment">// 方式二：使用 toString 方法</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">str3</span> <span class="operator">=</span> stringBuffer3.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="StringBuilder-类"><a href="#StringBuilder-类" class="headerlink" title="StringBuilder 类"></a>StringBuilder 类</h3><ul>
+<li><p>StringBuilder 类是可变字符串类，效率最高，线程不安全。</p>
+</li>
+<li><p>StringBuilder 类的直接父类是 AbstractStringBuilder。</p>
+</li>
+<li><p>StringBuilder 类中的方法没有做互斥的处理，因此在单线程的情况下才使用。</p>
+</li>
+</ul>
+<p><strong>StringBuffer 和 StringBuilder 类常用方法：</strong></p>
+<table>
+<thead>
+<tr>
+<th>方法名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>append()</code></td>
+<td>追加指定字符串</td>
+</tr>
+<tr>
+<td><code>delete()</code></td>
+<td>删除指定字符串</td>
+</tr>
+<tr>
+<td><code>replace()</code></td>
+<td>替换指定字符串</td>
+</tr>
+<tr>
+<td><code>indexOf()</code></td>
+<td>查找指定的字符串在字符串第一次出现的索引，如果找不到则返回 -1</td>
+</tr>
+<tr>
+<td><code>insert()</code></td>
+<td>指定一个位置插入字符串</td>
+</tr>
+<tr>
+<td><code>length()</code></td>
+<td>获取字符的个数，字符串的长度</td>
+</tr>
+</tbody></table>
+<h2 id="Math-类"><a href="#Math-类" class="headerlink" title="Math 类"></a>Math 类</h2><p>Math 类包含用于执行基本数学运算的方法，如初等指数、对数、平方根和三角函数。</p>
+<p><strong>Math 类常用方法：</strong></p>
+<table>
+<thead>
+<tr>
+<th>方法名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Math.abs()</code></td>
+<td>求绝对值</td>
+</tr>
+<tr>
+<td><code>Math.pow()</code></td>
+<td>求幂</td>
+</tr>
+<tr>
+<td><code>Math.ceil()</code></td>
+<td>向上取整</td>
+</tr>
+<tr>
+<td><code>Math.floor()</code></td>
+<td>向下取整</td>
+</tr>
+<tr>
+<td><code>Math.round()</code></td>
+<td>四舍五入</td>
+</tr>
+<tr>
+<td><code>Math.sqrt()</code></td>
+<td>求开方</td>
+</tr>
+<tr>
+<td><code>Math.random()</code></td>
+<td>返回 0~1 的随机小数</td>
+</tr>
+<tr>
+<td><code>Math.min()</code></td>
+<td>求最小值</td>
+</tr>
+<tr>
+<td><code>Math.max()</code></td>
+<td>求最大值</td>
+</tr>
+</tbody></table>
+<h2 id="Arrays-类"><a href="#Arrays-类" class="headerlink" title="Arrays 类"></a>Arrays 类</h2><p>Arrays 类里面包含了一系列静态方法，用于管理或操作数组（比如排序和搜索）。</p>
+<p><strong>Arrays 类常用方法：</strong></p>
+<table>
+<thead>
+<tr>
+<th>方法名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Arrays.toString()</code></td>
+<td>返回数组的字符串形式</td>
+</tr>
+<tr>
+<td><code>Arrays.sort()</code></td>
+<td>排序（自然排序和定制排序）</td>
+</tr>
+<tr>
+<td><code>Arrays.binarySearch()</code></td>
+<td>二分搜索进行查找，要求数组必须是有序的</td>
+</tr>
+<tr>
+<td><code>Arrays.copyOf()</code></td>
+<td>数组元素的复制</td>
+</tr>
+<tr>
+<td><code>Arrays.fill()</code></td>
+<td>数组元素的填充</td>
+</tr>
+<tr>
+<td><code>Arrays.equals()</code></td>
+<td>比较两个数组元素内容是否完全一致</td>
+</tr>
+<tr>
+<td><code>Arrays.asList()</code></td>
+<td>将一组值转换为 List</td>
+</tr>
+</tbody></table>
+<h2 id="System-类"><a href="#System-类" class="headerlink" title="System 类"></a>System 类</h2><p>System 类代表当前 Java 程序的运行平台，系统级的很多属性和控制方法都放置在该类的内部。由于该类的构造方法是 private 的，所以无法创建该类的对象，也就是无法实例化该类。</p>
+<p><strong>System 类常用方法：</strong></p>
+<table>
+<thead>
+<tr>
+<th>方法名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>System.exit()</code></td>
+<td>退出当前程序</td>
+</tr>
+<tr>
+<td><code>System.arraycopy()</code></td>
+<td>复制数组元素，比较适合底层调用</td>
+</tr>
+<tr>
+<td><code>System.currentTimeMillis()</code></td>
+<td>用于获取当前系统时间，以毫秒为单位</td>
+</tr>
+<tr>
+<td><code>System.gc()</code></td>
+<td>运行垃圾回收机制</td>
+</tr>
+</tbody></table>
+<h2 id="大数字类"><a href="#大数字类" class="headerlink" title="大数字类"></a>大数字类</h2><h3 id="BigInteger-类"><a href="#BigInteger-类" class="headerlink" title="BigInteger 类"></a>BigInteger 类</h3><p>如果要存储比 Integer 更大的数字，Integer 数据类型就无能为力了。因此，Java 中提供 BigInteger 类来处理更大的数字。</p>
+<h3 id="BigDecimal-类"><a href="#BigDecimal-类" class="headerlink" title="BigDecimal 类"></a>BigDecimal 类</h3><p>BigInteger 和 BigDecimal 都能实现大数字的运算，不同的是 BigDecimal 加入了小数的概念。BigDecimal 类支持任何精度的浮点数，可以用来精确计算货币值。</p>
+<p><strong>BigInteger 和 BigDecimal 类常用方法：</strong></p>
+<table>
+<thead>
+<tr>
+<th>方法名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>add()</code></td>
+<td>加法运算</td>
+</tr>
+<tr>
+<td><code>subtract()</code></td>
+<td>减法运算</td>
+</tr>
+<tr>
+<td><code>multiply()</code></td>
+<td>乘法运算</td>
+</tr>
+<tr>
+<td><code>divide()</code></td>
+<td>除法运算</td>
+</tr>
+</tbody></table>
+<h2 id="日期类"><a href="#日期类" class="headerlink" title="日期类"></a>日期类</h2><h3 id="第一代日期类"><a href="#第一代日期类" class="headerlink" title="第一代日期类"></a>第一代日期类</h3><ul>
+<li><p>Date 类用来封装当前的日期和时间。日期格式是国外的格式，因此通常需要对格式进行转换。</p>
+</li>
+<li><p>SimpleDateFormat 类用来格式化和解析日期，它允许进行日期到文本的格式化，文本到日期的解析。</p>
+</li>
+</ul>
+<p><strong>使用 SimpleDateFormat 类格式化日期：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.text.ParseException;</span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ParseException &#123;</span><br><span class="line">        <span class="comment">// 获取当前系统时间</span></span><br><span class="line">        <span class="type">Date</span> <span class="variable">date</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line">        <span class="comment">// 创建 SimpleDateFormat 对象，可以指定相应的格式</span></span><br><span class="line">        <span class="type">SimpleDateFormat</span> <span class="variable">simpleDateFormat</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleDateFormat</span>(<span class="string">&quot;yyyy年MM月dd日 HH:mm:ss E&quot;</span>);</span><br><span class="line">        <span class="comment">// 使用 format 方法转换成指定格式的字符串</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">format</span> <span class="operator">=</span> simpleDateFormat.format(date);</span><br><span class="line">        System.out.println(format);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 将一个格式化后的字符串转成对应的 Date</span></span><br><span class="line">        <span class="comment">// 字符串的格式需要和 simpleDateFormat 格式一样，否则会抛出异常</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="string">&quot;2023年05月01日 12:41:34 星期一&quot;</span>;</span><br><span class="line">        <span class="type">Date</span> <span class="variable">parse</span> <span class="operator">=</span> simpleDateFormat.parse(str);</span><br><span class="line">        System.out.println(simpleDateFormat.format(parse));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>SimpleDateFormat 类的格式化编码：</strong></p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://img.wkwbk.eu.org/PicGo/posts/9f0878d8/20230501164641.png"
+                        alt="20230501164641"
+                 ></p>
+<h3 id="第二代日期类"><a href="#第二代日期类" class="headerlink" title="第二代日期类"></a>第二代日期类</h3><ul>
+<li><p>Calendar 类是一个抽象类，且构造器是 protected 的，需要使用 <code>getInstance()</code> 方法来获取对象。</p>
+</li>
+<li><p>Calendar 没有提供对应的格式化类，因此需要自己自定义组合来输出。</p>
+</li>
+</ul>
+<p><strong>自定义组合输出：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Calendar;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 创建 Calendar 对象</span></span><br><span class="line">        <span class="type">Calendar</span> <span class="variable">calendar</span> <span class="operator">=</span> Calendar.getInstance();</span><br><span class="line">        <span class="comment">// 组合输出</span></span><br><span class="line">        System.out.println(calendar.get(Calendar.YEAR) + <span class="string">&quot;年&quot;</span> +</span><br><span class="line">                (calendar.get(Calendar.MARCH) + <span class="number">1</span>) + <span class="string">&quot;月&quot;</span> +</span><br><span class="line">                calendar.get(Calendar.DAY_OF_MONTH) + <span class="string">&quot;日 &quot;</span> +</span><br><span class="line">                calendar.get(Calendar.HOUR_OF_DAY) + <span class="string">&quot;:&quot;</span> +</span><br><span class="line">                calendar.get(Calendar.MINUTE) + <span class="string">&quot;:&quot;</span> +</span><br><span class="line">                calendar.get(Calendar.SECOND));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="第三代日期类"><a href="#第三代日期类" class="headerlink" title="第三代日期类"></a>第三代日期类</h3><ul>
+<li><p>LocalDate 类只包含日期。</p>
+</li>
+<li><p>LocalTime 类只包含时间。</p>
+</li>
+<li><p>LocalDateTime 类包含日期和时间。</p>
+</li>
+<li><p>三种类的构造器都是 private 的，都只能使用 <code>now()</code> 方法来获取对象。</p>
+</li>
+<li><p>DateTimeFormatter 类用来格式化和解析日期。</p>
+</li>
+<li><p>Instant 类是处理时间戳的，其构造器也是 private 的，需要使用 <code>now()</code> 方法来获取对象。</p>
+</li>
+</ul>
+<p><strong>三种类的使用：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.time.LocalDate;</span><br><span class="line"><span class="keyword">import</span> java.time.LocalTime;</span><br><span class="line"><span class="keyword">import</span> java.time.LocalDateTime;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 获取日期</span></span><br><span class="line">        <span class="type">LocalDate</span> <span class="variable">date</span> <span class="operator">=</span> LocalDate.now();</span><br><span class="line">        System.out.println(date);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取时间</span></span><br><span class="line">        <span class="type">LocalTime</span> <span class="variable">time</span> <span class="operator">=</span> LocalTime.now();</span><br><span class="line">        System.out.println(time);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取日期和时间</span></span><br><span class="line">        <span class="type">LocalDateTime</span> <span class="variable">dateTime</span> <span class="operator">=</span> LocalDateTime.now();</span><br><span class="line">        System.out.println(dateTime);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>使用 DateTimeFormatter 类格式化日期：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.time.LocalDateTime;</span><br><span class="line"><span class="keyword">import</span> java.time.format.DateTimeFormatter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 获取日期和时间</span></span><br><span class="line">        <span class="type">LocalDateTime</span> <span class="variable">dateTime</span> <span class="operator">=</span> LocalDateTime.now();</span><br><span class="line">        <span class="comment">// 创建 DateTimeFormatter 对象</span></span><br><span class="line">        <span class="type">DateTimeFormatter</span> <span class="variable">dateTimeFormatter</span> <span class="operator">=</span> DateTimeFormatter.ofPattern(<span class="string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">format</span> <span class="operator">=</span> dateTimeFormatter.format(dateTime);</span><br><span class="line">        System.out.println(format);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Instant 和 Date 类的相互转换：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="keyword">import</span> java.time.Instant;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 创建 Instant 对象</span></span><br><span class="line">        <span class="type">Instant</span> <span class="variable">instant</span> <span class="operator">=</span> Instant.now();</span><br><span class="line">        <span class="comment">// 通过 from 方法将 Instant 类转成 Date 类</span></span><br><span class="line">        <span class="type">Date</span> <span class="variable">date</span> <span class="operator">=</span> Date.from(instant);</span><br><span class="line">        <span class="comment">// 通过 toInstant 方法将 Date 类转成 Instant 类</span></span><br><span class="line">        <span class="type">Instant</span> <span class="variable">instant1</span> <span class="operator">=</span> date.toInstant();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+                </div>
+
+                
+                        
+<div class="post-copyright-info-container border-box">
+    <div class="copyright-info-content border-box">
+        <div class="copyright-info-top border-box">
+            <div class="copyright-post-title border-box text-ellipsis">
+                Java | 常用类
+            </div>
+
+            <div class="copyright-post-link border-box text-ellipsis">
+                posts/9f0878d8/
+            </div>
+        </div>
+
+        <div class="copyright-info-bottom border-box">
+            <div class="copyright-post-author bottom-item">
+                <div class="type">
+                    作者
+                </div>
+                <div class="content">LI SIR</div>
+            </div>
+
+            <div class="post-time bottom-item">
+                <div class="type">
+                    发布于
+                </div>
+                <div class="content">2023-04-29 16:25</div>
+            </div>
+
+
+            <div class="post-license bottom-item">
+                <div class="type">
+                    许可
+                </div>
+                <div class="content tooltip" data-tooltip-content="CC BY-NC-SA 4.0">
+                    <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans">
+                        <i class="fa-brands fa-creative-commons"></i>
+                        <i class="fa-brands fa-creative-commons-by"></i>
+                        <i class="fa-brands fa-creative-commons-nc"></i>
+                        <i class="fa-brands fa-creative-commons-sa"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <i class="copyright-bg fa-solid fa-copyright"></i>
+    </div>
+    <div class="copy-copyright-info flex-center tooltip" data-tooltip-content="复制版权信息" data-tooltip-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                            <ul class="post-tags-box border-box">
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/Java/">Java</a>
+                                    </li>
+                                
+                            </ul>
+                        
+                    </div>
+                    <div>
+                        
+                            <div class="post-share-container border-box">
+    <ul class="share-list-wrap border-box">
+        <li class="qq share-item border-box flex-center tooltip"
+            data-tooltip-content="分享到 QQ"
+        >
+            <i class="fa-brands fa-qq"></i>
+        </li>
+        <li class="wechat share-item border-box flex-center tooltip tooltip-img"
+            data-tooltip-content="分享到微信"
+            data-tooltip-img-tip="微信扫一扫"
+            data-tooltip-img-style="background-color: #fff; top: -10px; padding: 0.6rem 0.6rem 0.1rem 0.6rem;"
+        >
+            <i class="fa-brands fa-weixin"></i>
+        </li>
+        <li class="weibo share-item border-box flex-center tooltip"
+            data-tooltip-content="分享到微博"
+        >
+            <i class="fa-brands fa-weibo"></i>
+        </li>
+    </ul>
+</div>
+
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="post-nav border-box">
+                        
+                            <div class="prev-post">
+                                <a class="prev"
+                                   rel="prev"
+                                   href="/posts/c7f47f99/"
+                                   title="Java | 集合框架"
+                                >
+                                    <span class="left arrow-icon flex-center">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">Java | 集合框架</span>
+                                        <span class="post-nav-item">上一篇</span>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                        
+                            <div class="next-post">
+                                <a class="next"
+                                   rel="next"
+                                   href="/posts/3459c33c/"
+                                   title="Java | 异常处理"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">Java | 异常处理</span>
+                                        <span class="post-nav-item">下一篇</span>
+                                    </span>
+                                    <span class="right arrow-icon flex-center">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+    <div class="comments-container border-box">
+        <div id="comments-anchor" class="comment-area-title border-box">
+            <i class="fas fa-comments"></i>&nbsp;评论
+        </div>
+        <div class="comment-plugin-fail border-box">
+    <span class="fail-tip">评论插件加载失败</span>
+    <button class="reload keep-button">点击重新加载</button>
+</div>
+<div class="comment-plugin-loading flex-center border-box">
+    <i class="loading-icon fa-solid fa-spinner fa-spin"></i>
+    <span class="load-tip">正在加载评论插件</span>
+</div>
+<script data-pjax>
+  window.KeepCommentPlugin = {}
+  window.KeepCommentPlugin.hideLoading = () => {
+    const cplDom = document.querySelector('.comments-container .comment-plugin-loading')
+    cplDom.style.display = 'none'
+  }
+  window.KeepCommentPlugin.loadFailHandle = () => {
+    window.KeepCommentPlugin.hideLoading()
+    const cpfDom = document.querySelector('.comments-container .comment-plugin-fail')
+    cpfDom.style.display = 'flex'
+    cpfDom.querySelector('.reload').addEventListener('click', () => {
+      window.location.reload()
+    })
+  }
+</script>
+
+        
+            
+
+    <div class="twikoo-container">
+        <div id="twikoo-comment"></div>
+        <script data-pjax
+                src="//cdn.jsdelivr.net/npm/twikoo@1.6.29/dist/twikoo.all.min.js"
+                async
+                onerror="window.KeepCommentPlugin.loadFailHandle()"
+        ></script>
+        <script data-pjax
+                async
+                onerror="window.KeepCommentPlugin.loadFailHandle()"
+        >
+          window.KeepCommentPlugin.initTwikoo = () => {
+            if (window?.twikoo) {
+              twikoo.init({
+                el: '#twikoo-comment',
+                envId: 'https://twikoo.wkwbk.eu.org/',
+                region: '',
+                lang: 'zh-CN' || 'zh-CN'
+              })
+              window.KeepCommentPlugin.hideLoading()
+            } else {
+              setTimeout(() => {
+                window.KeepCommentPlugin.initTwikoo()
+              }, 1000)
+            }
+          }
+
+          if ('true' === 'true') {
+            setTimeout(() => {
+              window.KeepCommentPlugin.initTwikoo()
+            }, 1200)
+          } else {
+            window.addEventListener('DOMContentLoaded', window.KeepCommentPlugin.initTwikoo)
+          }
+        </script>
+    </div>
+
+
+        
+    </div>
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8C%85%E8%A3%85%E7%B1%BB"><span class="nav-number">1.</span> <span class="nav-text">包装类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A3%85%E7%AE%B1%E5%92%8C%E6%8B%86%E7%AE%B1"><span class="nav-number">1.1.</span> <span class="nav-text">装箱和拆箱</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%85%E8%A3%85%E7%B1%BB%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">包装类常用方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB"><span class="nav-number">2.</span> <span class="nav-text">字符串类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#String-%E7%B1%BB"><span class="nav-number">2.1.</span> <span class="nav-text">String 类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StringBuffer-%E7%B1%BB"><span class="nav-number">2.2.</span> <span class="nav-text">StringBuffer 类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StringBuilder-%E7%B1%BB"><span class="nav-number">2.3.</span> <span class="nav-text">StringBuilder 类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Math-%E7%B1%BB"><span class="nav-number">3.</span> <span class="nav-text">Math 类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Arrays-%E7%B1%BB"><span class="nav-number">4.</span> <span class="nav-text">Arrays 类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#System-%E7%B1%BB"><span class="nav-number">5.</span> <span class="nav-text">System 类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%A7%E6%95%B0%E5%AD%97%E7%B1%BB"><span class="nav-number">6.</span> <span class="nav-text">大数字类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BigInteger-%E7%B1%BB"><span class="nav-number">6.1.</span> <span class="nav-text">BigInteger 类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BigDecimal-%E7%B1%BB"><span class="nav-number">6.2.</span> <span class="nav-text">BigDecimal 类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A5%E6%9C%9F%E7%B1%BB"><span class="nav-number">7.</span> <span class="nav-text">日期类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E4%BB%A3%E6%97%A5%E6%9C%9F%E7%B1%BB"><span class="nav-number">7.1.</span> <span class="nav-text">第一代日期类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E4%BB%A3%E6%97%A5%E6%9C%9F%E7%B1%BB"><span class="nav-number">7.2.</span> <span class="nav-text">第二代日期类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E4%BB%A3%E6%97%A5%E6%9C%9F%E7%B1%BB"><span class="nav-number">7.3.</span> <span class="nav-text">第三代日期类</span></a></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="border-box website-info-box shields">
+        
+            <div class="info-item">
+                
+                <a class="shields-item">
+                    <img src="https://img.shields.io/badge/Since-2020_--_2024-dodgerblue?style=flat-square">
+                </a>
+                
+                    <a class="shields-item" href="/">
+                        <img src="https://img.shields.io/badge/WebMaster-LI SIR-dodgerblue?style=flat-square">
+                    </a>
+                
+                
+                <a class="shields-item" href="https://hexo.io" target="_blank">
+                    <img src="https://img.shields.io/badge/Powered_by-Hexo-dodgerblue?style=flat-square">
+                </a>
+                <a class="shields-item" href="https://github.com/XPoet/hexo-theme-keep" target="_blank">
+                    <img class="shields-keep-version" src="https://img.shields.io/badge/Theme-Keep-dodgerblue?style=flat-square">
+                </a>
+                
+                    <a class="shields-item no-pointer"
+                       target="_blank"
+                       rel="nofollow"
+                       href=""
+                    >
+                        <img src="https://img.shields.io/badge/Deploy_in-GitHub Pages-dodgerblue?style=flat-square">
+                    </a>
+                
+            </div>
+            
+                <div class="info-item">
+                    
+                        
+                    
+                </div>
+            
+        
+
+        <div class="count-item info-item shields">
+            
+                <span class="count-box border-box word">
+                    <span class="item-type border-box">总字数</span>
+                    <span class="item-value border-box word">114.6k</span>
+                </span>
+            
+
+            
+                <span class="count-box border-box uv">
+                    <span class="item-type border-box">访客数</span>
+                    <span class="item-value border-box uv" id="busuanzi_value_site_uv"></span>
+                </span>
+            
+
+            
+                <span class="count-box border-box pv">
+                    <span class="item-type border-box">访问量</span>
+                    <span class="item-value border-box pv" id="busuanzi_value_site_pv"></span>
+                </span>
+            
+        </div>
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="tools-list border-box">
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+            <li class="tools-item flex-center go-to-comments">
+                <i class="fas fa-comment"></i>
+                <span class="post-comments-count"></span>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-toggle-theme-mode flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+            <li class="tools-item go-to-comments-tablet flex-center">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8C%85%E8%A3%85%E7%B1%BB"><span class="nav-number">1.</span> <span class="nav-text">包装类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A3%85%E7%AE%B1%E5%92%8C%E6%8B%86%E7%AE%B1"><span class="nav-number">1.1.</span> <span class="nav-text">装箱和拆箱</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%85%E8%A3%85%E7%B1%BB%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">包装类常用方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB"><span class="nav-number">2.</span> <span class="nav-text">字符串类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#String-%E7%B1%BB"><span class="nav-number">2.1.</span> <span class="nav-text">String 类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StringBuffer-%E7%B1%BB"><span class="nav-number">2.2.</span> <span class="nav-text">StringBuffer 类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StringBuilder-%E7%B1%BB"><span class="nav-number">2.3.</span> <span class="nav-text">StringBuilder 类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Math-%E7%B1%BB"><span class="nav-number">3.</span> <span class="nav-text">Math 类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Arrays-%E7%B1%BB"><span class="nav-number">4.</span> <span class="nav-text">Arrays 类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#System-%E7%B1%BB"><span class="nav-number">5.</span> <span class="nav-text">System 类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%A7%E6%95%B0%E5%AD%97%E7%B1%BB"><span class="nav-number">6.</span> <span class="nav-text">大数字类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BigInteger-%E7%B1%BB"><span class="nav-number">6.1.</span> <span class="nav-text">BigInteger 类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BigDecimal-%E7%B1%BB"><span class="nav-number">6.2.</span> <span class="nav-text">BigDecimal 类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A5%E6%9C%9F%E7%B1%BB"><span class="nav-number">7.</span> <span class="nav-text">日期类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E4%BB%A3%E6%97%A5%E6%9C%9F%E7%B1%BB"><span class="nav-number">7.1.</span> <span class="nav-text">第一代日期类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E4%BB%A3%E6%97%A5%E6%9C%9F%E7%B1%BB"><span class="nav-number">7.2.</span> <span class="nav-text">第二代日期类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E4%BB%A3%E6%97%A5%E6%9C%9F%E7%B1%BB"><span class="nav-number">7.3.</span> <span class="nav-text">第三代日期类</span></a></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+<!-- common -->
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/toggle-theme.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/code-block.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/libs/anime.min.js"></script>
+
+<!-- local-search -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/local-search.js"></script>
+
+
+<!-- lazyload -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/lazyload.js"></script>
+
+
+<div class="pjax">
+    
+        <!-- post-helper -->
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/post/post-helper.js"></script>
+
+        <!-- toc -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/post/toc.js"></script>
+        
+
+        <!-- copyright-info -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/post/copyright-info.js"></script>
+        
+
+        <!-- share -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/post/share.js"></script>
+        
+    
+
+    <!-- category-page -->
+    
+
+    <!-- links-page -->
+    
+
+    <!-- photos-page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart()
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd()
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'))
+            KEEP.initExecute()
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="个人博客,个人网站,无可无不可,lisir,wkwbk,Blog,Hexo,Markdown">
+    <meta name="description" content="记住，你什么都不缺，你缺的是从头再来的勇气">
+    <meta name="author" content="LI SIR">
+    
+    <title>
+        
+            虚拟机中搭建 Hadoop 集群 |
+        
+        LI SIR - Remember me.
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="https://img.wkwbk.eu.org/i/favicon.png">
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/font/css/brands.min.css">
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"blog.lisir.me","root":"/","language":"zh-CN","path":"search.json"}
+    KEEP.theme_config = {"base_info":{"primary_color":"#0066CC","title":"LI SIR - Remember me.","author":"LI SIR","avatar":"https://img.wkwbk.eu.org/i/avatar.png","logo":"https://img.wkwbk.eu.org/i/favicon.png","favicon":"https://img.wkwbk.eu.org/i/favicon.png"},"menu":{"Archives":"/archives","Tags":"/tags","Categories":"/categories","Links":"/links","About":"https://lisir.me/"},"first_screen":{"enable":true,"background_img":"https://img.wkwbk.eu.org/PicX/bg.svg","background_img_dark":"https://img.wkwbk.eu.org/PicX/bg.svg","description":"我亦无他，惟手熟尔","hitokoto":false},"social_contact":{"enable":true,"links":{"github":"https://github.com/wkwbk","email":"lisir.me@qq.com","telegram":"https://t.me/zvzsu","weixin":null,"qq":null,"weibo":null,"zhihu":null,"twitter":null,"facebook":null}},"scroll":{"progress_bar":true,"percent":true,"hide_header":true},"home":{"category":true,"tag":true,"announcement":"2023年12月24日：主题已更新至最新"},"post":{"author_badge":{"enable":true,"level_badge":true,"custom_badge":["One","Two","Three"]},"word_count":{"wordcount":true,"min2read":true},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":true,"share":true,"reward":{"enable":false,"img_link":null,"text":null}},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"obsidian"},"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true,"layout":"right"},"website_count":{"busuanzi_count":{"enable":true,"site_uv":true,"site_pv":true,"page_pv":true}},"local_search":{"enable":true,"preload":true},"comment":{"enable":true,"use":"twikoo","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":"https://twikoo.wkwbk.eu.org/","region":null,"version":"1.6.29"},"waline":{"server_url":null,"reaction":false,"version":2},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false},"artalk":{"server":null},"disqus":{"shortname":null}},"rss":{"enable":true},"lazyload":{"enable":true},"cdn":{"enable":true,"provider":"jsdelivr"},"pjax":{"enable":true},"footer":{"since":2020,"word_count":true,"icp":{"enable":false,"record_code":null,"url":"https://beian.miit.gov.cn"},"site_deploy":{"enable":true,"provider":"github","url":null},"shields_style":{"enable":true,"custom":[{"link_url":null,"img_url":null}]}},"inject":{"enable":false,"css":[null],"js":[null]},"root":"","links":[{"title":"推荐博客"},{"name":"Heo","link":"https://blog.zhheo.com","avatar":"https://blog.zhheo.com/img/avatar.png","description":"爱折腾的设计师"},{"name":"Akilarの糖果屋","link":"https://akilar.top","avatar":"https://npm.elemecdn.com/akilar-candyassets/image/siteicon/favicon.png","description":"期待您的光临!"},{"title":"小伙伴们"},{"name":"贰猹的小窝","link":"https://noionion.top","avatar":"https://pub-noionion.oss-cn-hangzhou.aliyuncs.com/head.jpg","description":"用这生命中的每一秒，给自己一个不后悔的未来"},{"name":"Sianx's Blog","link":"https://sianx.com","avatar":"https://npm.elemecdn.com/picture-sianx@1.0.0/Blog/logo.png","description":"总之岁月漫长, 然而值得等待。"},{"name":"Ordis","link":"https://imbhj.com","avatar":"https://imbhj.com/img/avatar1.png","description":"船到桥头自然直，柳暗花明又一村"},{"name":"小孙同学","link":"https://blog.sunguoqi.com/","avatar":"https://blog.sunguoqi.com/images/avatar.jpg","description":"热爱可抵漫长岁月！"},{"name":"不如吃茶去","link":"http://www.zsqblog.top","avatar":"https://pic.imgdb.cn/item/61d9d0022ab3f51d9156c5eb.jpg","description":"I can do all things…"},{"name":"二兔","link":"https://blog.juanertu.com","avatar":"https://blog.juanertu.com/images/avatar.png","description":"能与你一起成长，我荣幸之至。"},{"name":"瑾年","link":"https://www.zhoudongqi.com","avatar":"https://www.zhoudongqi.com/touxiang.png","description":"徘踏春色并好友，驱驰十里赏青丘"},{"name":"小嘉的部落格","link":"https://blog.imzjw.cn","avatar":"https://npm.elemecdn.com/nanshen/avatar.jpg","description":"一个爱折腾的Java开发工程师"},{"name":"Joyer的博客","link":"https://blog.joyer.top","avatar":"https://blog.joyer.top/img/favicon.png","description":"一只会唱Lahee~的龙"},{"name":"圣奇宝枣的博客小站","link":"https://shengqibaozao.eu.org","avatar":"https://cdn.jsdelivr.net/gh/ShengQiBaoZao/Image/info/user.png","description":"有朋自远方来，不亦乐乎，愿与你相识，得闲饮茶"}],"version":"4.0.5"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="LI SIR" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+<main class="page-container border-box">
+
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="https://img.wkwbk.eu.org/i/favicon.png">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               LI SIR - Remember me.
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc">
+                <ul class="menu-list">
+                    <li class="menu-item">
+                        <a class=""
+                           href="/"
+                        >首页</a>
+                    </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >归档</a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >标签</a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >分类</a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >友链</a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://lisir.me/"
+                            >关于</a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas search fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            <li class="drawer-menu-item flex-center">
+                <a class=""
+                   href="/"
+                >首页</a>
+            </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives"
+                    >归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags"
+                    >标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories"
+                    >分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links"
+                    >友链</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://lisir.me/"
+                    >关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+                
+
+                    
+<div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+        <div class="post-content-container border-box">
+            
+
+            <div class="post-content-bottom border-box">
+                
+                    <div class="post-title">
+                        虚拟机中搭建 Hadoop 集群
+                    </div>
+                
+
+                
+                    <div class="post-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="https://img.wkwbk.eu.org/i/avatar.png">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author border-box">
+                                <span class="name">LI SIR</span>
+                                
+                                    <span class="author-badge">Lv4</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="post-meta-info-container border-box post">
+    <div class="post-meta-info border-box">
+        
+
+        
+            <span class="meta-info-item post-create-date">
+                <i class="icon fa-solid fa-calendar-check"></i>&nbsp;
+                <span class="pc">2023-02-25 11:16:47</span>
+                <span class="mobile">2023-02-25 11:16</span>
+            </span>
+
+            <span class="meta-info-item post-update-date">
+                <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                <span class="pc" data-updated="Fri May 12 2023 20:26:36 GMT+0800">2023-05-12 20:26:36</span>
+            </span>
+        
+
+        
+            <span class="meta-info-item post-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="post-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+            <span class="post-tag meta-info-item border-box">
+                <i class="icon fas fa-tags"></i>&nbsp;
+                <ul class="post-tag-ul">
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/Hadoop/">Hadoop</a></li>
+                        
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/%E9%9B%86%E7%BE%A4/">集群</a></li>
+                        
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/">虚拟机</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+        
+            <span class="meta-info-item post-wordcount">
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>3.1k 字</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-min2read">
+                <i class="icon fas fa-clock"></i>&nbsp;<span>14 分钟</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-pv">
+                <i class="icon fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="post-content keep-markdown-body">
+                    
+
+                    <p>Hadoop 是一个由 Apache 基金会所开发的分布式系统基础架构。用户可以在不了解分布式底层细节的情况下，开发分布式程序。充分利用集群的威力进行高速运算和存储。Hadoop 实现了一个分布式文件系统（ Distributed File System），其中一个组件是 HDFS（Hadoop Distributed File System）。HDFS 有高容错性的特点，并且设计用来部署在低廉的（low-cost）硬件上；而且它提供高吞吐量（high throughput）来访问应用程序的数据，适合那些有着超大数据集（large data set）的应用程序。HDFS 放宽了（relax）POSIX 的要求，可以以流的形式访问（streaming access）文件系统中的数据。Hadoop 的框架最核心的设计就是：HDFS 和 MapReduce。HDFS 为海量的数据提供了存储，而 MapReduce 则为海量的数据提供了计算。</p>
+<span id="more"></span>
+
+<hr>
+<h2 id="提前准备"><a href="#提前准备" class="headerlink" title="提前准备"></a>提前准备</h2><h3 id="系统"><a href="#系统" class="headerlink" title="系统"></a>系统</h3><ul>
+<li>CPU虚拟化：已启用</li>
+</ul>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><ul>
+<li>运行虚拟机的工具：<a class="link"   target="_blank" rel="noopener" href="https://www.vmware.com/cn/products/workstation-pro/workstation-pro-evaluation.html" >VMware<i class="fas fa-external-link-alt"></i></a> (激活密钥：MC60H-DWHD5-H80U9-6V85M-8280D)</li>
+<li>SSH 工具：<a class="link"   target="_blank" rel="noopener" href="https://www.hostbuf.com/" >FinalShell<i class="fas fa-external-link-alt"></i></a></li>
+</ul>
+<h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><ul>
+<li>Linux 镜像：<a class="link"   target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/centos/7.9.2009/isos/x86_64/" >CentOS<i class="fas fa-external-link-alt"></i></a></li>
+<li>Java 环境：<a class="link"   target="_blank" rel="noopener" href="https://www.oracle.com/mx/java/technologies/javase/javase8u211-later-archive-downloads.html" >JDK8<i class="fas fa-external-link-alt"></i></a></li>
+<li>Hadoop 环境：<a class="link"   target="_blank" rel="noopener" href="https://hadoop.apache.org/release/3.1.3.html" >Hadoop<i class="fas fa-external-link-alt"></i></a></li>
+</ul>
+<h2 id="配置模板虚拟机"><a href="#配置模板虚拟机" class="headerlink" title="配置模板虚拟机"></a>配置模板虚拟机</h2><h3 id="安装虚拟机"><a href="#安装虚拟机" class="headerlink" title="安装虚拟机"></a>安装虚拟机</h3><ul>
+<li>虚拟机配置：处理器1C 内存1G 硬盘30G</li>
+</ul>
+<h3 id="网络设置"><a href="#网络设置" class="headerlink" title="网络设置"></a>网络设置</h3><blockquote>
+<p>开始前可以使用 ip addr 查看虚拟机的 IP，然后使用 SSH 工具连接虚拟机方便后续配置信息的修改。</p>
+</blockquote>
+<h4 id="修改镜像源到国内"><a href="#修改镜像源到国内" class="headerlink" title="修改镜像源到国内"></a>修改镜像源到国内</h4><p><a href="https://blog.lisir.me/posts/d7a91b5f/">点我查看</a></p>
+<h4 id="安装-Linux-必备工具"><a href="#安装-Linux-必备工具" class="headerlink" title="安装 Linux 必备工具"></a>安装 Linux 必备工具</h4><ul>
+<li><p>安装</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#CentOS</span></span><br><span class="line">yum install -y curl wget vim zip sudo rsync openssh-server openssh-clients</span><br><span class="line"></span><br><span class="line"><span class="comment">#Debian</span></span><br><span class="line">apt install -y curl wget vim zip sudo rsync</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h4><ul>
+<li><p>查看防火墙的状态</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl status firewalld.service</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关闭防火墙</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld.service</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关闭防火墙自动启动</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">disable</span> firewalld.service</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>开启防火墙</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start firewalld.service</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>开启防火墙自动启动</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> firewalld.service</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="静态-IP-配置"><a href="#静态-IP-配置" class="headerlink" title="静态 IP 配置"></a>静态 IP 配置</h4><ul>
+<li><p>备份网络配置文件</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># CentOS</span></span><br><span class="line">sudo <span class="built_in">cp</span> /etc/sysconfig/network-scripts/ifcfg-ens33 /etc/sysconfig/network-scripts/ifcfg-ens33.bak</span><br><span class="line"></span><br><span class="line"><span class="comment"># Debian</span></span><br><span class="line">sudo <span class="built_in">cp</span> /etc/network/interfaces  /etc/network/interfaces.bak</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编辑网络配置文件</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># CentOS</span></span><br><span class="line">sudo vim /etc/sysconfig/network-scripts/ifcfg-ens33</span><br><span class="line"></span><br><span class="line"><span class="comment"># Debian</span></span><br><span class="line">sudo vim /etc/network/interfaces</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>CentOS 参考配置</p>
+  <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">TYPE=&quot;Ethernet&quot;</span><br><span class="line">PROXY_METHOD=&quot;none&quot;</span><br><span class="line">BROWSER_ONLY=&quot;no&quot;</span><br><span class="line">BOOTPROTO=&quot;static&quot;</span><br><span class="line">DEFROUTE=&quot;yes&quot;</span><br><span class="line">IPV4_FAILURE_FATAL=&quot;no&quot;</span><br><span class="line">IPV6INIT=&quot;yes&quot;</span><br><span class="line">IPV6_AUTOCONF=&quot;yes&quot;</span><br><span class="line">IPV6_DEFROUTE=&quot;yes&quot;</span><br><span class="line">IPV6_FAILURE_FATAL=&quot;no&quot;</span><br><span class="line">IPV6_ADDR_GEN_MODE=&quot;stable-privacy&quot;</span><br><span class="line">NAME=&quot;ens33&quot;</span><br><span class="line">UUID=&quot;5a646ee0-bc7e-4793-83b9-1784f237c07d&quot;</span><br><span class="line">DEVICE=&quot;ens33&quot;</span><br><span class="line">ONBOOT=&quot;yes&quot;</span><br><span class="line"></span><br><span class="line">IPADDR=192.168.10.102</span><br><span class="line">GATEWAY=192.168.10.2</span><br><span class="line">NETMASK=255.255.255.0</span><br><span class="line">DNS1=114.114.114.114</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Debian 参考配置：</p>
+  <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># The loopback network interface</span><br><span class="line">auto lo</span><br><span class="line">iface lo inet loopback</span><br><span class="line"></span><br><span class="line"># The primary network interface</span><br><span class="line">allow-hotplug ens33</span><br><span class="line">iface ens33 inet static</span><br><span class="line">address 192.168.10.100</span><br><span class="line">netmask 255.255.255.0</span><br><span class="line">gateway 192.168.10.2</span><br><span class="line">nameserver 114.114.114.114</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="修改主机名称"><a href="#修改主机名称" class="headerlink" title="修改主机名称"></a>修改主机名称</h4><ul>
+<li><p>编辑 hostname 文件</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/hostname</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="修改主机名称映射"><a href="#修改主机名称映射" class="headerlink" title="修改主机名称映射"></a>修改主机名称映射</h4><ul>
+<li><p>编辑 hosts 文件</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/hosts</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>参考配置：</p>
+  <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1       localhost</span><br><span class="line">127.0.1.1       hadoop100</span><br><span class="line"></span><br><span class="line">192.168.10.100  hadoop100</span><br><span class="line">192.168.10.101  hadoop101</span><br><span class="line">192.168.10.102  hadoop102</span><br><span class="line">192.168.10.103  hadoop103</span><br><span class="line">192.168.10.104  hadoop104</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重启使配置生效</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reboot</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>因为设置了静态 IP，所以 SSH 工具中的主机 IP 也需要对应修改。</p>
+</blockquote>
+</li>
+<li><p>查看是否生效</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看 IP</span></span><br><span class="line">ip addr</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看主机名</span></span><br><span class="line">hostname</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="权限设置"><a href="#权限设置" class="headerlink" title="权限设置"></a>权限设置</h3><ul>
+<li><p>允许 root 用户以 SSH 方式登录</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#使用 vim 编辑 sshd_config 文件</span></span><br><span class="line">sudo vim /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
+
+<p>  找到下面这一段：</p>
+  <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#PermitRootLogin prohibit-password</span><br></pre></td></tr></table></figure>
+
+<p>  修改成下面这一段，注意前面的 # 号需要去掉：</p>
+  <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PermitRootLogin yes</span><br></pre></td></tr></table></figure>
+
+<p>  然后重启 SSH 服务：</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service sshd restart</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置普通用户具有 root 权限，方便后期使用 sudo 执行 root 权限的命令</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#使用 vim 编辑 sudoers 文件</span></span><br><span class="line">sudo vim /etc/sudoers</span><br></pre></td></tr></table></figure>
+
+<p>  找到下面这一段：</p>
+  <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%wheel  ALL=(ALL)       ALL</span><br></pre></td></tr></table></figure>
+
+<p>  在它的下面添加一行：</p>
+  <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;username&gt;  ALL=(ALL)       NOPASSWD:ALL</span><br><span class="line">#替换 &lt;username&gt; 为你自己的用户名</span><br></pre></td></tr></table></figure>
+
+<p>  参考配置：</p>
+  <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">## Allow root to run any commands anywhere </span><br><span class="line">root    ALL=(ALL)       ALL</span><br><span class="line"></span><br><span class="line">## Allows members of the &#x27;sys&#x27; group to run networking, software, </span><br><span class="line">## service management apps and more.</span><br><span class="line"># %sys ALL = NETWORKING, SOFTWARE, SERVICES, STORAGE, DELEGATING, PROCESSES, LOCATE, DRIVERS</span><br><span class="line"></span><br><span class="line">## Allows people in group wheel to run all commands</span><br><span class="line">%wheel  ALL=(ALL)       ALL</span><br><span class="line">hadoop  ALL=(ALL)       NOPASSWD:ALL</span><br><span class="line">## Same thing without a password</span><br><span class="line"># %wheel        ALL=(ALL)       NOPASSWD: ALL</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="克隆虚拟机"><a href="#克隆虚拟机" class="headerlink" title="克隆虚拟机"></a>克隆虚拟机</h3><ul>
+<li>以上步骤完成后关闭虚拟机，然后进行克隆，克隆方法选择创建完整克隆</li>
+<li>克隆三台名为 hadoop102 到 hadoop104 的虚拟机</li>
+<li>分别修改 hadoop102 到 hadoop104 的静态 IP 地址和主机名称</li>
+</ul>
+<h3 id="SSH-连接"><a href="#SSH-连接" class="headerlink" title="SSH 连接"></a>SSH 连接</h3><ul>
+<li><p>修改 Windows 主机映射文件</p>
+  <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">修改此路径中的 hosts 文件</span><br><span class="line">C:\Windows\System32\drivers\etc\</span><br><span class="line"></span><br><span class="line">Windows7 用户可以直接修改此文件</span><br><span class="line">Windows10 用户需要复制此文件到其他位置修改，然后再覆盖原始的文件</span><br></pre></td></tr></table></figure>
+
+<p>  参考配置：</p>
+  <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#将如下内容添加到 hosts 文件最后</span><br><span class="line"></span><br><span class="line">192.168.10.100 hadoop100</span><br><span class="line">192.168.10.101 hadoop101</span><br><span class="line">192.168.10.102 hadoop102</span><br><span class="line">192.168.10.103 hadoop103</span><br><span class="line">192.168.10.104 hadoop104</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用 FinalShell 添加 SSH 连接</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">名称：hadoop102 (可自定义)</span><br><span class="line">主机：hadoop102</span><br><span class="line">端口：22</span><br><span class="line"></span><br><span class="line">名称：hadoop103 (可自定义)</span><br><span class="line">主机：hadoop103</span><br><span class="line">端口：22</span><br><span class="line"></span><br><span class="line">名称：hadoop104 (可自定义)</span><br><span class="line">主机：hadoop104</span><br><span class="line">端口：22</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="安装-JDK-Hadoop"><a href="#安装-JDK-Hadoop" class="headerlink" title="安装 JDK &amp; Hadoop"></a>安装 JDK &amp; Hadoop</h2><blockquote>
+<p>首先在 hadoop102 上安装，后续可以使用 scp 和 rsync 命令复制或同步到 hadoop103、hadoop104。</p>
+</blockquote>
+<h3 id="创建安装目录"><a href="#创建安装目录" class="headerlink" title="创建安装目录"></a>创建安装目录</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#创建安装目录</span></span><br><span class="line">sudo <span class="built_in">mkdir</span> /opt/module /opt/software</span><br><span class="line"></span><br><span class="line"><span class="comment">#修改目录所有者</span></span><br><span class="line">sudo <span class="built_in">chown</span> &lt;user&gt;:&lt;group&gt; /opt/module/ /opt/software/</span><br><span class="line"><span class="comment">#&lt;user&gt;:&lt;group&gt; 需要替换成自己设置的用户名和用户组，例如：</span></span><br><span class="line">sudo <span class="built_in">chown</span> hadoop:hadoop /opt/module/ /opt/software/</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>使用 SSH 工具上传压缩包到 &#x2F;opt&#x2F;software 目录中</p>
+</blockquote>
+<h3 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h3><blockquote>
+<p>注意：如果下载的版本不一样，压缩包名称也会不一样，自行修改。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf /opt/software/jdk-8u212-linux-x64.tar.gz -C /opt/module</span><br><span class="line">tar -zxvf /opt/software/hadoop-3.1.3.tar.gz -C /opt/module</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#生成 my_env.sh 文件进行编辑</span></span><br><span class="line">sudo vim /etc/profile.d/my_env.sh</span><br></pre></td></tr></table></figure>
+
+<p>参考配置：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#JAVA_HOME</span><br><span class="line">export JAVA_HOME=/opt/module/jdk1.8.0_212</span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin</span><br><span class="line"></span><br><span class="line">#HADOOP_HOME</span><br><span class="line">export HADOOP_HOME=/opt/module/hadoop-3.1.3</span><br><span class="line">export PATH=$PATH:$HADOOP_HOME/bin</span><br><span class="line">export PATH=$PATH:$HADOOP_HOME/sbin</span><br></pre></td></tr></table></figure>
+
+<h3 id="更新环境变量"><a href="#更新环境变量" class="headerlink" title="更新环境变量"></a>更新环境变量</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure>
+
+<h3 id="验证环境变量是否生效"><a href="#验证环境变量是否生效" class="headerlink" title="验证环境变量是否生效"></a>验证环境变量是否生效</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看版本</span></span><br><span class="line">java -version</span><br><span class="line">hadoop version</span><br></pre></td></tr></table></figure>
+
+<h2 id="scp-rsync-命令"><a href="#scp-rsync-命令" class="headerlink" title="scp &amp; rsync 命令"></a>scp &amp; rsync 命令</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul>
+<li>scp 可以实现服务器与服务器之间的数据拷贝 (from server1 to server2)</li>
+<li>rsync 主要用于备份和镜像，具有速度快、避免复制相同内容和支持符号链接的优点</li>
+<li>差异：用 rsync 做文件的复制要比 scp 的速度快，rsync 只对差异文件做更新，scp 是把所有文件都复制过去</li>
+</ul>
+<h3 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h3><ul>
+<li><p>scp</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">scp -r <span class="variable">$pdir</span>/<span class="variable">$fname</span> <span class="variable">$user</span>@<span class="variable">$host</span>:<span class="variable">$pdir</span>/<span class="variable">$fname</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$pdir</span>/<span class="variable">$fname</span> <span class="comment">#表示要拷贝的文件路径/名称</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$user</span>@<span class="variable">$host</span>:<span class="variable">$pdir</span>/<span class="variable">$fname</span> <span class="comment">#表示目的地的用户@主机:目的地路径/名称</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#带参数 -r 表示拷贝目录，不带 -r 则拷贝文件</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>rsync</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rsync -av <span class="variable">$pdir</span>/<span class="variable">$fname</span> <span class="variable">$user</span>@<span class="variable">$host</span>:<span class="variable">$pdir</span>/<span class="variable">$fname</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#参数 -a 表示归档模式，表示以递归方式传输文件，并保持所有文件属性</span></span><br><span class="line"><span class="comment">#参数 -v 显示过程</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="实操"><a href="#实操" class="headerlink" title="实操"></a>实操</h3><ul>
+<li><p>scp</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#将 hadoop102 中的 /opt/module 拷贝到 hadoop103 上</span></span><br><span class="line">scp -r /opt/module hadoop@hadoop103:/opt</span><br><span class="line"></span><br><span class="line"><span class="comment">#从 hadoop102 中拷贝 /opt/module 到 hadoop103 上</span></span><br><span class="line">scp -r hadoop@hadoop102:/opt/module /opt</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>rsync</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#同步 hadoop102 和 hadoop103 中的 /opt/module/hadoop-3.1.4</span></span><br><span class="line">rsync -av /opt/module/hadoop-3.1.4 hadoop@hadoop103:/opt/module/hadoop-3.1.4</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="xsync-分发脚本"><a href="#xsync-分发脚本" class="headerlink" title="xsync 分发脚本"></a>xsync 分发脚本</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#在 /bin 目录下生成 xsync 文件并编辑</span></span><br><span class="line">sudo vim /bin/xsync</span><br></pre></td></tr></table></figure>
+
+<p>参考配置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#1. 判断参数个数</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$#</span> -lt 1 ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> Not Enough Arguement!</span><br><span class="line">  <span class="built_in">exit</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#2. 遍历集群所有机器</span></span><br><span class="line"><span class="keyword">for</span> host <span class="keyword">in</span> hadoop102 hadoop103 hadoop104; <span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> =============== <span class="variable">$host</span> ===============</span><br><span class="line"></span><br><span class="line">  <span class="comment">#3. 遍历所有目录，挨个发送</span></span><br><span class="line">  <span class="keyword">for</span> file <span class="keyword">in</span> <span class="variable">$@</span>; <span class="keyword">do</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#4. 判断文件是否存在</span></span><br><span class="line">    <span class="keyword">if</span> [ -e <span class="variable">$file</span> ]; <span class="keyword">then</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">#5. 获取父目录</span></span><br><span class="line">      pdir=$(</span><br><span class="line">        <span class="built_in">cd</span> -P $(<span class="built_in">dirname</span> <span class="variable">$file</span>)</span><br><span class="line">        <span class="built_in">pwd</span></span><br><span class="line">      )</span><br><span class="line"></span><br><span class="line">      <span class="comment">#6. 获取当前文件的名称</span></span><br><span class="line">      fname=$(<span class="built_in">basename</span> <span class="variable">$file</span>)</span><br><span class="line">      ssh <span class="variable">$host</span> <span class="string">&quot;mkdir -p <span class="variable">$pdir</span>&quot;</span></span><br><span class="line">      rsync -av <span class="variable">$pdir</span>/<span class="variable">$fname</span> <span class="variable">$host</span>:<span class="variable">$pdir</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      <span class="built_in">echo</span> <span class="variable">$file</span> does not exists!</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">  <span class="keyword">done</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#让 xsync 具有可执行权限</span></span><br><span class="line">sudo <span class="built_in">chmod</span> 777 /bin/xsync</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#使用 xsync 分发环境变量</span></span><br><span class="line">sudo xsync /etc/profile.d/my_env.sh</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#然后在每台主机上运行以下命令更新环境变量</span></span><br><span class="line"><span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure>
+
+<h2 id="SSH-免密登录"><a href="#SSH-免密登录" class="headerlink" title="SSH 免密登录"></a>SSH 免密登录</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#分别在 hadoop102、hadoop103、hadoop104 中创建 ssh 密钥</span></span><br><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看 ssh 密钥</span></span><br><span class="line">ssh-keygen -l</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#分别将公钥拷贝到 hadoop102、hadoop103、hadoop104 中</span></span><br><span class="line">ssh-copy-id hadoop102</span><br><span class="line">ssh-copy-id hadoop103</span><br><span class="line">ssh-copy-id hadoop104</span><br></pre></td></tr></table></figure>
+
+<h2 id="集群配置"><a href="#集群配置" class="headerlink" title="集群配置"></a>集群配置</h2><h3 id="集群部署规划"><a href="#集群部署规划" class="headerlink" title="集群部署规划"></a>集群部署规划</h3><blockquote>
+<p>注意：NameNode 和 SecondaryNameNode 不要安装在同一台服务器上。ResourceManager 也很消耗内存，不要和 NameNode、SecondaryNameNode 配置在同一台服务器上</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">hadoop102</th>
+<th align="center">hadoop103</th>
+<th align="center">hadoop104</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">HDFS</td>
+<td align="center"><em>NameNode</em><br>DataNode</td>
+<td align="center"><br>DataNode</td>
+<td align="center"><em>SecondaryNameNode</em><br>DataNode</td>
+</tr>
+<tr>
+<td align="center">YARN</td>
+<td align="center"><br>NodeManager</td>
+<td align="center"><em>ResourceManager</em><br>NodeManager</td>
+<td align="center"><br>NodeManager</td>
+</tr>
+</tbody></table>
+<h3 id="自定义配置文件"><a href="#自定义配置文件" class="headerlink" title="自定义配置文件"></a>自定义配置文件</h3><blockquote>
+<p>core-site.xml、hdfs-site.xml、mapred-site.xml、yarn-site.xml 四个配置文件都存放在 $HADOOP_HOME&#x2F;etc&#x2F;hadoop 这个目录下，用户可以根据项目需求重新进行修改配置。</p>
+</blockquote>
+<h4 id="核心配置"><a href="#核心配置" class="headerlink" title="核心配置"></a>核心配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim <span class="variable">$HADOOP_HOME</span>/etc/hadoop/core-site.xml</span><br></pre></td></tr></table></figure>
+
+<p>参考配置：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 指定 NameNode 的地址 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.defaultFS<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://hadoop102:8020<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 指定 hadoop 数据的存储目录 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>/opt/module/hadoop-3.1.3/data<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 配置 HDFS 网页登录使用的静态用户为 hadoop --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.http.staticuser.user<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>hadoop<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="HDFS-配置"><a href="#HDFS-配置" class="headerlink" title="HDFS 配置"></a>HDFS 配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim <span class="variable">$HADOOP_HOME</span>/etc/hadoop/hdfs-site.xml</span><br></pre></td></tr></table></figure>
+
+<p>参考配置：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- NameNode Web 访问地址 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.http-address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>hadoop102:9870<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- SecondaryNameNode Web 访问地址 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.secondary.http-address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>hadoop104:9868<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="YARN-配置"><a href="#YARN-配置" class="headerlink" title="YARN 配置"></a>YARN 配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim <span class="variable">$HADOOP_HOME</span>/etc/hadoop/yarn-site.xml</span><br></pre></td></tr></table></figure>
+
+<p>参考配置：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 指定 MR 走 shuffle --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.aux-services<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>mapreduce_shuffle<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 指定 ResourceManager 的地址 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.hostname<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>hadoop103<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 环境变量的继承 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.env-whitelist<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>JAVA_HOME,HADOOP_COMMON_HOME,HADOOP_HDFS_HOME,HADOOP_CONF_DIR,CLASSPATH_PREPEND_DISTCACHE,HADOOP_YARN_HOME,HADOOP_HOME,PATH,LANG,TZ<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="MapReduce-配置"><a href="#MapReduce-配置" class="headerlink" title="MapReduce 配置"></a>MapReduce 配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim <span class="variable">$HADOOP_HOME</span>/etc/hadoop/mapred-site.xml</span><br></pre></td></tr></table></figure>
+
+<p>参考配置：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 指定 MapReduce 程序运行在 YARN 上 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.framework.name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>yarn<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="workers-配置"><a href="#workers-配置" class="headerlink" title="workers 配置"></a>workers 配置</h4><blockquote>
+<p>注意：该文件中添加的内容结尾不允许有空格，文件中不允许有空行。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim <span class="variable">$HADOOP_HOME</span>/etc/hadoop/workers</span><br></pre></td></tr></table></figure>
+
+<p>参考配置：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hadoop102</span><br><span class="line">hadoop103</span><br><span class="line">hadoop104</span><br></pre></td></tr></table></figure>
+
+<h3 id="分发配置文件"><a href="#分发配置文件" class="headerlink" title="分发配置文件"></a>分发配置文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xsync <span class="variable">$HADOOP_HOME</span>/etc/hadoop</span><br></pre></td></tr></table></figure>
+
+<h2 id="群起集群"><a href="#群起集群" class="headerlink" title="群起集群"></a>群起集群</h2><ul>
+<li><p>启动集群</p>
+<p>  如果集群是第一次启动，需要在 hadoop102 节点格式化 NameNode</p>
+<blockquote>
+<p>注意：格式化 NameNode，会产生新的集群 id，导致 NameNode 和 DataNode 的集群 id 不一致，集群找不到已往数据。如果集群在运行过程中报错，需要重新格式化 NameNode 的话，一定要先停止 namenode 和 datanode 进程，并且要删除所有机器的 data 和 logs 目录，然后再进行格化。</p>
+</blockquote>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs namenode -format</span><br></pre></td></tr></table></figure>
+
+<p>  在 hadoop102 上启动 HDFS</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">start-dfs.sh</span><br></pre></td></tr></table></figure>
+
+<p>  在 hadoop103 上启动 YARN</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">start-yarn.sh</span><br></pre></td></tr></table></figure>
+
+<p>  查看运行状态</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jsp</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="报错解决办法"><a href="#报错解决办法" class="headerlink" title="报错解决办法"></a>报错解决办法</h2><p>Hadoop 提示 ERROR: Attempting to operate on yarn resourcemanager as root 的解决方法</p>
+<p>在 start-dfs.sh 和 stop-dfs.sh 文件的顶部添加以下参数：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HDFS_DATANODE_USER=root</span><br><span class="line">HADOOP_SECURE_DN_USER=hdfs</span><br><span class="line">HDFS_NAMENODE_USER=root</span><br><span class="line">HDFS_SECONDARYNAMENODE_USER=root</span><br></pre></td></tr></table></figure>
+
+<p>在 start-yarn.sh 和 stop-yarn.sh 文件的顶部添加以下参数：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">YARN_RESOURCEMANAGER_USER=root</span><br><span class="line">HADOOP_SECURE_DN_USER=yarn</span><br><span class="line">YARN_NODEMANAGER_USER=root</span><br></pre></td></tr></table></figure>
+
+<h2 id="集群奔溃处理办法"><a href="#集群奔溃处理办法" class="headerlink" title="集群奔溃处理办法"></a>集群奔溃处理办法</h2><ul>
+<li><p>停止集群</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stop-dfs.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除 data 和 logs 目录</p>
+<blockquote>
+<p>注意：每台服务器上的 data 和 logs 目录都需要删除</p>
+</blockquote>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rm</span> -rf <span class="variable">$HADOOP_HOME</span>/data <span class="variable">$HADOOP_HOME</span>/logs</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>格式化集群</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs namenode -format</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动集群</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">start-dfs.sh</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="两个常用脚本"><a href="#两个常用脚本" class="headerlink" title="两个常用脚本"></a>两个常用脚本</h2><h3 id="集群启停脚本"><a href="#集群启停脚本" class="headerlink" title="集群启停脚本"></a>集群启停脚本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#在 /bin 目录下生成 xsync 文件并编辑</span></span><br><span class="line">sudo vim /bin/myhadoop</span><br></pre></td></tr></table></figure>
+
+<p>参考配置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$#</span> -lt 1 ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;No Args Input...&quot;</span></span><br><span class="line">  <span class="built_in">exit</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">case</span> <span class="variable">$1</span> <span class="keyword">in</span></span><br><span class="line"><span class="string">&quot;start&quot;</span>)</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;=============== 启动 hadoop 集群 ===============&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;--------------- 启动 hdfs ---------------&quot;</span></span><br><span class="line">  ssh hadoop102 <span class="string">&quot;<span class="variable">$HADOOP_HOME</span>/sbin/start-dfs.sh&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;--------------- 启动 yarn ---------------&quot;</span></span><br><span class="line">  ssh hadoop103 <span class="string">&quot;<span class="variable">$HADOOP_HOME</span>/sbin/start-yarn.sh&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;--------------- 启动 historyserver ---------------&quot;</span></span><br><span class="line">  ssh hadoop102 <span class="string">&quot;<span class="variable">$HADOOP_HOME</span>/bin/mapred --daemon start historyserver&quot;</span></span><br><span class="line"></span><br><span class="line">  ;;</span><br><span class="line"><span class="string">&quot;stop&quot;</span>)</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;=============== 停止 hadoop 集群 ===============&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;--------------- 停止 historyserver ---------------&quot;</span></span><br><span class="line">  ssh hadoop102 <span class="string">&quot;<span class="variable">$HADOOP_HOME</span>/bin/mapred --daemon stop historyserver&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;--------------- 停止 yarn ---------------&quot;</span></span><br><span class="line">  ssh hadoop103 <span class="string">&quot;<span class="variable">$HADOOP_HOME</span>/sbin/stop-yarn.sh&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;--------------- 停止 hdfs ---------------&quot;</span></span><br><span class="line">  ssh hadoop102 <span class="string">&quot;<span class="variable">$HADOOP_HOME</span>/sbin/stop-dfs.sh&quot;</span></span><br><span class="line"></span><br><span class="line">  ;;</span><br><span class="line">*)</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;Input Args Error...&quot;</span></span><br><span class="line">  ;;</span><br><span class="line"><span class="keyword">esac</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#让 myhadoop 具有可执行权限</span></span><br><span class="line">sudo <span class="built_in">chmod</span> 777 /bin/myhadoop</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看-Java-进程脚本"><a href="#查看-Java-进程脚本" class="headerlink" title="查看 Java 进程脚本"></a>查看 Java 进程脚本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#在 /bin 目录下生成 xsync 文件并编辑</span></span><br><span class="line">sudo vim /bin/jpsall</span><br></pre></td></tr></table></figure>
+
+<p>参考配置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> host <span class="keyword">in</span> hadoop102 hadoop103 hadoop104; <span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;=============== <span class="variable">$host</span> ===============&quot;</span></span><br><span class="line">  ssh <span class="variable">$host</span> jps</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#让 jpsall 具有可执行权限</span></span><br><span class="line">sudo <span class="built_in">chmod</span> 777 /bin/jpsall</span><br></pre></td></tr></table></figure>
+
+                </div>
+
+                
+                        
+<div class="post-copyright-info-container border-box">
+    <div class="copyright-info-content border-box">
+        <div class="copyright-info-top border-box">
+            <div class="copyright-post-title border-box text-ellipsis">
+                虚拟机中搭建 Hadoop 集群
+            </div>
+
+            <div class="copyright-post-link border-box text-ellipsis">
+                posts/9c43781b/
+            </div>
+        </div>
+
+        <div class="copyright-info-bottom border-box">
+            <div class="copyright-post-author bottom-item">
+                <div class="type">
+                    作者
+                </div>
+                <div class="content">LI SIR</div>
+            </div>
+
+            <div class="post-time bottom-item">
+                <div class="type">
+                    发布于
+                </div>
+                <div class="content">2023-02-25 11:16</div>
+            </div>
+
+
+            <div class="post-license bottom-item">
+                <div class="type">
+                    许可
+                </div>
+                <div class="content tooltip" data-tooltip-content="CC BY-NC-SA 4.0">
+                    <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans">
+                        <i class="fa-brands fa-creative-commons"></i>
+                        <i class="fa-brands fa-creative-commons-by"></i>
+                        <i class="fa-brands fa-creative-commons-nc"></i>
+                        <i class="fa-brands fa-creative-commons-sa"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <i class="copyright-bg fa-solid fa-copyright"></i>
+    </div>
+    <div class="copy-copyright-info flex-center tooltip" data-tooltip-content="复制版权信息" data-tooltip-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                            <ul class="post-tags-box border-box">
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/Hadoop/">Hadoop</a>
+                                    </li>
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/%E9%9B%86%E7%BE%A4/">集群</a>
+                                    </li>
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/">虚拟机</a>
+                                    </li>
+                                
+                            </ul>
+                        
+                    </div>
+                    <div>
+                        
+                            <div class="post-share-container border-box">
+    <ul class="share-list-wrap border-box">
+        <li class="qq share-item border-box flex-center tooltip"
+            data-tooltip-content="分享到 QQ"
+        >
+            <i class="fa-brands fa-qq"></i>
+        </li>
+        <li class="wechat share-item border-box flex-center tooltip tooltip-img"
+            data-tooltip-content="分享到微信"
+            data-tooltip-img-tip="微信扫一扫"
+            data-tooltip-img-style="background-color: #fff; top: -10px; padding: 0.6rem 0.6rem 0.1rem 0.6rem;"
+        >
+            <i class="fa-brands fa-weixin"></i>
+        </li>
+        <li class="weibo share-item border-box flex-center tooltip"
+            data-tooltip-content="分享到微博"
+        >
+            <i class="fa-brands fa-weibo"></i>
+        </li>
+    </ul>
+</div>
+
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="post-nav border-box">
+                        
+                            <div class="prev-post">
+                                <a class="prev"
+                                   rel="prev"
+                                   href="/posts/3d3a7fb3/"
+                                   title="证书考试 | 软件设计师"
+                                >
+                                    <span class="left arrow-icon flex-center">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">证书考试 | 软件设计师</span>
+                                        <span class="post-nav-item">上一篇</span>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                        
+                            <div class="next-post">
+                                <a class="next"
+                                   rel="next"
+                                   href="/posts/d7a91b5f/"
+                                   title="各 Linux 发行版修改镜像源"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">各 Linux 发行版修改镜像源</span>
+                                        <span class="post-nav-item">下一篇</span>
+                                    </span>
+                                    <span class="right arrow-icon flex-center">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+    <div class="comments-container border-box">
+        <div id="comments-anchor" class="comment-area-title border-box">
+            <i class="fas fa-comments"></i>&nbsp;评论
+        </div>
+        <div class="comment-plugin-fail border-box">
+    <span class="fail-tip">评论插件加载失败</span>
+    <button class="reload keep-button">点击重新加载</button>
+</div>
+<div class="comment-plugin-loading flex-center border-box">
+    <i class="loading-icon fa-solid fa-spinner fa-spin"></i>
+    <span class="load-tip">正在加载评论插件</span>
+</div>
+<script data-pjax>
+  window.KeepCommentPlugin = {}
+  window.KeepCommentPlugin.hideLoading = () => {
+    const cplDom = document.querySelector('.comments-container .comment-plugin-loading')
+    cplDom.style.display = 'none'
+  }
+  window.KeepCommentPlugin.loadFailHandle = () => {
+    window.KeepCommentPlugin.hideLoading()
+    const cpfDom = document.querySelector('.comments-container .comment-plugin-fail')
+    cpfDom.style.display = 'flex'
+    cpfDom.querySelector('.reload').addEventListener('click', () => {
+      window.location.reload()
+    })
+  }
+</script>
+
+        
+            
+
+    <div class="twikoo-container">
+        <div id="twikoo-comment"></div>
+        <script data-pjax
+                src="//cdn.jsdelivr.net/npm/twikoo@1.6.29/dist/twikoo.all.min.js"
+                async
+                onerror="window.KeepCommentPlugin.loadFailHandle()"
+        ></script>
+        <script data-pjax
+                async
+                onerror="window.KeepCommentPlugin.loadFailHandle()"
+        >
+          window.KeepCommentPlugin.initTwikoo = () => {
+            if (window?.twikoo) {
+              twikoo.init({
+                el: '#twikoo-comment',
+                envId: 'https://twikoo.wkwbk.eu.org/',
+                region: '',
+                lang: 'zh-CN' || 'zh-CN'
+              })
+              window.KeepCommentPlugin.hideLoading()
+            } else {
+              setTimeout(() => {
+                window.KeepCommentPlugin.initTwikoo()
+              }, 1000)
+            }
+          }
+
+          if ('true' === 'true') {
+            setTimeout(() => {
+              window.KeepCommentPlugin.initTwikoo()
+            }, 1200)
+          } else {
+            window.addEventListener('DOMContentLoaded', window.KeepCommentPlugin.initTwikoo)
+          }
+        </script>
+    </div>
+
+
+        
+    </div>
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%90%E5%89%8D%E5%87%86%E5%A4%87"><span class="nav-number">1.</span> <span class="nav-text">提前准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.1.</span> <span class="nav-text">系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD"><span class="nav-number">1.3.</span> <span class="nav-text">下载</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%A8%A1%E6%9D%BF%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="nav-number">2.</span> <span class="nav-text">配置模板虚拟机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="nav-number">2.1.</span> <span class="nav-text">安装虚拟机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E8%AE%BE%E7%BD%AE"><span class="nav-number">2.2.</span> <span class="nav-text">网络设置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E9%95%9C%E5%83%8F%E6%BA%90%E5%88%B0%E5%9B%BD%E5%86%85"><span class="nav-number">2.2.1.</span> <span class="nav-text">修改镜像源到国内</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Linux-%E5%BF%85%E5%A4%87%E5%B7%A5%E5%85%B7"><span class="nav-number">2.2.2.</span> <span class="nav-text">安装 Linux 必备工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E9%97%AD%E9%98%B2%E7%81%AB%E5%A2%99"><span class="nav-number">2.2.3.</span> <span class="nav-text">关闭防火墙</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%99%E6%80%81-IP-%E9%85%8D%E7%BD%AE"><span class="nav-number">2.2.4.</span> <span class="nav-text">静态 IP 配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E4%B8%BB%E6%9C%BA%E5%90%8D%E7%A7%B0"><span class="nav-number">2.2.5.</span> <span class="nav-text">修改主机名称</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E4%B8%BB%E6%9C%BA%E5%90%8D%E7%A7%B0%E6%98%A0%E5%B0%84"><span class="nav-number">2.2.6.</span> <span class="nav-text">修改主机名称映射</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E8%AE%BE%E7%BD%AE"><span class="nav-number">2.3.</span> <span class="nav-text">权限设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%8B%E9%9A%86%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="nav-number">2.4.</span> <span class="nav-text">克隆虚拟机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SSH-%E8%BF%9E%E6%8E%A5"><span class="nav-number">2.5.</span> <span class="nav-text">SSH 连接</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-JDK-Hadoop"><span class="nav-number">3.</span> <span class="nav-text">安装 JDK &amp; Hadoop</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%AE%89%E8%A3%85%E7%9B%AE%E5%BD%95"><span class="nav-number">3.1.</span> <span class="nav-text">创建安装目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%8E%8B"><span class="nav-number">3.2.</span> <span class="nav-text">解压</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">3.3.</span> <span class="nav-text">配置环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">3.4.</span> <span class="nav-text">更新环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E6%98%AF%E5%90%A6%E7%94%9F%E6%95%88"><span class="nav-number">3.5.</span> <span class="nav-text">验证环境变量是否生效</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scp-rsync-%E5%91%BD%E4%BB%A4"><span class="nav-number">4.</span> <span class="nav-text">scp &amp; rsync 命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">4.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="nav-number">4.2.</span> <span class="nav-text">基本语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E6%93%8D"><span class="nav-number">4.3.</span> <span class="nav-text">实操</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#xsync-%E5%88%86%E5%8F%91%E8%84%9A%E6%9C%AC"><span class="nav-number">5.</span> <span class="nav-text">xsync 分发脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH-%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95"><span class="nav-number">6.</span> <span class="nav-text">SSH 免密登录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE"><span class="nav-number">7.</span> <span class="nav-text">集群配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%E8%A7%84%E5%88%92"><span class="nav-number">7.1.</span> <span class="nav-text">集群部署规划</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">7.2.</span> <span class="nav-text">自定义配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E9%85%8D%E7%BD%AE"><span class="nav-number">7.2.1.</span> <span class="nav-text">核心配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HDFS-%E9%85%8D%E7%BD%AE"><span class="nav-number">7.2.2.</span> <span class="nav-text">HDFS 配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#YARN-%E9%85%8D%E7%BD%AE"><span class="nav-number">7.2.3.</span> <span class="nav-text">YARN 配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MapReduce-%E9%85%8D%E7%BD%AE"><span class="nav-number">7.2.4.</span> <span class="nav-text">MapReduce 配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#workers-%E9%85%8D%E7%BD%AE"><span class="nav-number">7.2.5.</span> <span class="nav-text">workers 配置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E5%8F%91%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">7.3.</span> <span class="nav-text">分发配置文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BE%A4%E8%B5%B7%E9%9B%86%E7%BE%A4"><span class="nav-number">8.</span> <span class="nav-text">群起集群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95"><span class="nav-number">9.</span> <span class="nav-text">报错解决办法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%86%E7%BE%A4%E5%A5%94%E6%BA%83%E5%A4%84%E7%90%86%E5%8A%9E%E6%B3%95"><span class="nav-number">10.</span> <span class="nav-text">集群奔溃处理办法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A4%E4%B8%AA%E5%B8%B8%E7%94%A8%E8%84%9A%E6%9C%AC"><span class="nav-number">11.</span> <span class="nav-text">两个常用脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9B%86%E7%BE%A4%E5%90%AF%E5%81%9C%E8%84%9A%E6%9C%AC"><span class="nav-number">11.1.</span> <span class="nav-text">集群启停脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B-Java-%E8%BF%9B%E7%A8%8B%E8%84%9A%E6%9C%AC"><span class="nav-number">11.2.</span> <span class="nav-text">查看 Java 进程脚本</span></a></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="border-box website-info-box shields">
+        
+            <div class="info-item">
+                
+                <a class="shields-item">
+                    <img src="https://img.shields.io/badge/Since-2020_--_2024-dodgerblue?style=flat-square">
+                </a>
+                
+                    <a class="shields-item" href="/">
+                        <img src="https://img.shields.io/badge/WebMaster-LI SIR-dodgerblue?style=flat-square">
+                    </a>
+                
+                
+                <a class="shields-item" href="https://hexo.io" target="_blank">
+                    <img src="https://img.shields.io/badge/Powered_by-Hexo-dodgerblue?style=flat-square">
+                </a>
+                <a class="shields-item" href="https://github.com/XPoet/hexo-theme-keep" target="_blank">
+                    <img class="shields-keep-version" src="https://img.shields.io/badge/Theme-Keep-dodgerblue?style=flat-square">
+                </a>
+                
+                    <a class="shields-item no-pointer"
+                       target="_blank"
+                       rel="nofollow"
+                       href=""
+                    >
+                        <img src="https://img.shields.io/badge/Deploy_in-GitHub Pages-dodgerblue?style=flat-square">
+                    </a>
+                
+            </div>
+            
+                <div class="info-item">
+                    
+                        
+                    
+                </div>
+            
+        
+
+        <div class="count-item info-item shields">
+            
+                <span class="count-box border-box word">
+                    <span class="item-type border-box">总字数</span>
+                    <span class="item-value border-box word">114.6k</span>
+                </span>
+            
+
+            
+                <span class="count-box border-box uv">
+                    <span class="item-type border-box">访客数</span>
+                    <span class="item-value border-box uv" id="busuanzi_value_site_uv"></span>
+                </span>
+            
+
+            
+                <span class="count-box border-box pv">
+                    <span class="item-type border-box">访问量</span>
+                    <span class="item-value border-box pv" id="busuanzi_value_site_pv"></span>
+                </span>
+            
+        </div>
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="tools-list border-box">
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+            <li class="tools-item flex-center go-to-comments">
+                <i class="fas fa-comment"></i>
+                <span class="post-comments-count"></span>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-toggle-theme-mode flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+            <li class="tools-item go-to-comments-tablet flex-center">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%90%E5%89%8D%E5%87%86%E5%A4%87"><span class="nav-number">1.</span> <span class="nav-text">提前准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.1.</span> <span class="nav-text">系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD"><span class="nav-number">1.3.</span> <span class="nav-text">下载</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%A8%A1%E6%9D%BF%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="nav-number">2.</span> <span class="nav-text">配置模板虚拟机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="nav-number">2.1.</span> <span class="nav-text">安装虚拟机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E8%AE%BE%E7%BD%AE"><span class="nav-number">2.2.</span> <span class="nav-text">网络设置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E9%95%9C%E5%83%8F%E6%BA%90%E5%88%B0%E5%9B%BD%E5%86%85"><span class="nav-number">2.2.1.</span> <span class="nav-text">修改镜像源到国内</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Linux-%E5%BF%85%E5%A4%87%E5%B7%A5%E5%85%B7"><span class="nav-number">2.2.2.</span> <span class="nav-text">安装 Linux 必备工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E9%97%AD%E9%98%B2%E7%81%AB%E5%A2%99"><span class="nav-number">2.2.3.</span> <span class="nav-text">关闭防火墙</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%99%E6%80%81-IP-%E9%85%8D%E7%BD%AE"><span class="nav-number">2.2.4.</span> <span class="nav-text">静态 IP 配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E4%B8%BB%E6%9C%BA%E5%90%8D%E7%A7%B0"><span class="nav-number">2.2.5.</span> <span class="nav-text">修改主机名称</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E4%B8%BB%E6%9C%BA%E5%90%8D%E7%A7%B0%E6%98%A0%E5%B0%84"><span class="nav-number">2.2.6.</span> <span class="nav-text">修改主机名称映射</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E8%AE%BE%E7%BD%AE"><span class="nav-number">2.3.</span> <span class="nav-text">权限设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%8B%E9%9A%86%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="nav-number">2.4.</span> <span class="nav-text">克隆虚拟机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SSH-%E8%BF%9E%E6%8E%A5"><span class="nav-number">2.5.</span> <span class="nav-text">SSH 连接</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-JDK-Hadoop"><span class="nav-number">3.</span> <span class="nav-text">安装 JDK &amp; Hadoop</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%AE%89%E8%A3%85%E7%9B%AE%E5%BD%95"><span class="nav-number">3.1.</span> <span class="nav-text">创建安装目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%8E%8B"><span class="nav-number">3.2.</span> <span class="nav-text">解压</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">3.3.</span> <span class="nav-text">配置环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">3.4.</span> <span class="nav-text">更新环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E6%98%AF%E5%90%A6%E7%94%9F%E6%95%88"><span class="nav-number">3.5.</span> <span class="nav-text">验证环境变量是否生效</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scp-rsync-%E5%91%BD%E4%BB%A4"><span class="nav-number">4.</span> <span class="nav-text">scp &amp; rsync 命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">4.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="nav-number">4.2.</span> <span class="nav-text">基本语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E6%93%8D"><span class="nav-number">4.3.</span> <span class="nav-text">实操</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#xsync-%E5%88%86%E5%8F%91%E8%84%9A%E6%9C%AC"><span class="nav-number">5.</span> <span class="nav-text">xsync 分发脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH-%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95"><span class="nav-number">6.</span> <span class="nav-text">SSH 免密登录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE"><span class="nav-number">7.</span> <span class="nav-text">集群配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%E8%A7%84%E5%88%92"><span class="nav-number">7.1.</span> <span class="nav-text">集群部署规划</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">7.2.</span> <span class="nav-text">自定义配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E9%85%8D%E7%BD%AE"><span class="nav-number">7.2.1.</span> <span class="nav-text">核心配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HDFS-%E9%85%8D%E7%BD%AE"><span class="nav-number">7.2.2.</span> <span class="nav-text">HDFS 配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#YARN-%E9%85%8D%E7%BD%AE"><span class="nav-number">7.2.3.</span> <span class="nav-text">YARN 配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MapReduce-%E9%85%8D%E7%BD%AE"><span class="nav-number">7.2.4.</span> <span class="nav-text">MapReduce 配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#workers-%E9%85%8D%E7%BD%AE"><span class="nav-number">7.2.5.</span> <span class="nav-text">workers 配置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E5%8F%91%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">7.3.</span> <span class="nav-text">分发配置文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BE%A4%E8%B5%B7%E9%9B%86%E7%BE%A4"><span class="nav-number">8.</span> <span class="nav-text">群起集群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95"><span class="nav-number">9.</span> <span class="nav-text">报错解决办法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%86%E7%BE%A4%E5%A5%94%E6%BA%83%E5%A4%84%E7%90%86%E5%8A%9E%E6%B3%95"><span class="nav-number">10.</span> <span class="nav-text">集群奔溃处理办法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A4%E4%B8%AA%E5%B8%B8%E7%94%A8%E8%84%9A%E6%9C%AC"><span class="nav-number">11.</span> <span class="nav-text">两个常用脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9B%86%E7%BE%A4%E5%90%AF%E5%81%9C%E8%84%9A%E6%9C%AC"><span class="nav-number">11.1.</span> <span class="nav-text">集群启停脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B-Java-%E8%BF%9B%E7%A8%8B%E8%84%9A%E6%9C%AC"><span class="nav-number">11.2.</span> <span class="nav-text">查看 Java 进程脚本</span></a></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+<!-- common -->
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/toggle-theme.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/code-block.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/libs/anime.min.js"></script>
+
+<!-- local-search -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/local-search.js"></script>
+
+
+<!-- lazyload -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/lazyload.js"></script>
+
+
+<div class="pjax">
+    
+        <!-- post-helper -->
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/post/post-helper.js"></script>
+
+        <!-- toc -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/post/toc.js"></script>
+        
+
+        <!-- copyright-info -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/post/copyright-info.js"></script>
+        
+
+        <!-- share -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/post/share.js"></script>
+        
+    
+
+    <!-- category-page -->
+    
+
+    <!-- links-page -->
+    
+
+    <!-- photos-page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.0.5/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart()
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd()
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'))
+            KEEP.initExecute()
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
