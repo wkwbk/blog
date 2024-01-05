@@ -1,0 +1,8 @@
+:root {
+  --box-border-radius: 20px; /* 定制模块卡片的边框圆角 */
+  --home-post-hover-scale: 1.025; /* 定制首页文章模块鼠标悬浮时的缩放级别 */
+  --page-content-max-width: 1000px; /* 定制页面内容区域的最大宽度 */
+}
+.page-container .side-tools {
+  bottom: 40px !important; /* 提高工具栏，默认 1.6 */
+}
