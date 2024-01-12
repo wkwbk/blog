@@ -6,7 +6,7 @@
   <link href="https://blog.lisir.me/atom.xml" rel="self"/>
   
   <link href="https://blog.lisir.me/"/>
-  <updated>2024-01-12T04:11:40.570Z</updated>
+  <updated>2024-01-12T06:52:28.600Z</updated>
   <id>https://blog.lisir.me/</id>
   
   <author>
@@ -17,13 +17,34 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>英语精读</title>
+    <link href="https://blog.lisir.me/posts/9a718705/"/>
+    <id>https://blog.lisir.me/posts/9a718705/</id>
+    <published>2024-01-12T06:59:46.000Z</published>
+    <updated>2024-01-12T06:52:28.600Z</updated>
+    
+    <content type="html"><![CDATA[<p>todo</p><span id="more"></span>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;todo&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="学习笔记" scheme="https://blog.lisir.me/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="英语精读" scheme="https://blog.lisir.me/tags/%E8%8B%B1%E8%AF%AD%E7%B2%BE%E8%AF%BB/"/>
+    
+  </entry>
+  
+  <entry>
     <title>学习笔记 | 英语语法</title>
     <link href="https://blog.lisir.me/posts/d3f8bfd7/"/>
     <id>https://blog.lisir.me/posts/d3f8bfd7/</id>
     <published>2024-01-03T03:59:46.000Z</published>
-    <updated>2024-01-12T04:11:40.570Z</updated>
+    <updated>2024-01-12T06:53:33.404Z</updated>
     
-    <content type="html"><![CDATA[<ul><li><a href="/posts/6f1261c3/">英语语法 | 句子成分</a></li><li><a href="/posts/84c90a91/">英语语法 | 简单句</a></li><li><a href="/posts/78cf5cff/">英语语法 | 词性</a></li><li><a href="/posts/26b33495/">英语语法 | 时态</a></li><li><a href="/posts/9e47et28/">英语语法 | 语态</a></li><li><a href="/posts/b86ba424/">英语语法 | 语气</a></li><li><a href="/posts/5b824013/">英语语法 | 复合句</a></li><li><a href="/posts/81c4e30a/">英语语法</a></li></ul><span id="more"></span>]]></content>
+    <content type="html"><![CDATA[<ul><li><a href="/posts/6f1261c3/">英语语法 | 句子成分</a></li><li><a href="/posts/84c90a91/">英语语法 | 简单句</a></li><li><a href="/posts/78cf5cff/">英语语法 | 词性</a></li><li><a href="/posts/26b33495/">英语语法 | 时态</a></li><li><a href="/posts/9e47et28/">英语语法 | 语态</a></li><li><a href="/posts/b86ba424/">英语语法 | 语气</a></li><li><a href="/posts/5b824013/">英语语法 | 复合句</a></li><li><a href="/posts/81c4e30a/">英语语法</a></li><li><a href="/posts/9a718705/">英语精读</a></li></ul><span id="more"></span>]]></content>
     
     
     <summary type="html">&lt;ul&gt;
@@ -35,6 +56,7 @@
 &lt;li&gt;&lt;a href=&quot;/posts/b86ba424/&quot;&gt;英语语法 | 语气&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;/posts/5b824013/&quot;&gt;英语语法 | 复合句&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;/posts/81c4e30a/&quot;&gt;英语语法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;/posts/9a718705/&quot;&gt;英语精读&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</summary>
     
     
@@ -587,29 +609,6 @@
     
     
     <category term="Java" scheme="https://blog.lisir.me/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java | 异常处理</title>
-    <link href="https://blog.lisir.me/posts/3459c33c/"/>
-    <id>https://blog.lisir.me/posts/3459c33c/</id>
-    <published>2023-04-28T12:12:19.000Z</published>
-    <updated>2023-05-01T00:53:16.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>异常是程序中的一些错误，但并不是所有的错误都是异常，并且错误有时候是可以避免的。</p><span id="more"></span><hr><h2 id="异常的概念"><a href="#异常的概念" class="headerlink" title="异常的概念"></a>异常的概念</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">num1</span> <span class="operator">=</span> <span class="number">10</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">num2</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> num1 / num2;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;程序继续执行……&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>Java 语言中，将程序执行中发生的不正常情况称为“异常”（开发过程中的语法错误和逻辑错误不是异常）。</p><p><strong>执行过程中所发生的异常事件可分为两大类：</strong></p><ol><li><p>Error（错误）：Java 虚拟机无法解决的严重问题。如：JVM 系统内部错误、资源耗尽等严重情况。比如 StackOverflowError（栈溢出）和 OOM（out of memory），Error 是严重错误，程序会崩溃。</p></li><li><p>Exception：其它因编程错误或偶然的外在因素导致的一般性问题，可以使用针对性的代码进行处理。例如空指针访问，试图读取不存在的文件，网络连接中断等等。Exception 分为两大类：运行时异常（程序运行时，发生的异常），编译时异常（编程时，编译器检查出的异常）。</p></li></ol><p><strong>Java 异常层次结构图：</strong></p><p><img                         lazyload                       alt="image"                       data-src="https://img.wkwbk.eu.org/PicGo/posts/3459c33c/20230429150552.png"                        alt="20230429150552"                 ></p><h2 id="运行时异常"><a href="#运行时异常" class="headerlink" title="运行时异常"></a>运行时异常</h2><p>运行时异常，编译器不要求强制处置的异常。一般是指编程时的逻辑错误，是程序员应该避免其出现的异常。对于运行时异常，可以不作处理，因为这类异常很普遍，若全处理可能会对程序的可读性和运行效率产生影响。</p><p><strong>常见的运行时异常包括：</strong></p><ul><li><p>NullPointerException 空指针异常：当应用程序试图在需要对象的地方使用 null 时，抛出该异常。</p></li><li><p>ArithmeticException 数学运算异常：当出现异常的运算条件时，抛出该异常。</p></li><li><p>ArraylndexOutOfBoundsException 数组下标越界异常：用非法的索引访问数组时，抛出该异常。</p></li><li><p>ClassCastException 类型转换异常：当试图将对象强制转换为不是实例的子类时，抛出该异常。</p></li><li><p>NumberFormatException 数字格式不正确异常：当应用程序试图将字符串转换成一种数值类型，但该字符串不能转换为适当的格式时，抛出该异常。</p></li></ul><h2 id="编译时异常"><a href="#编译时异常" class="headerlink" title="编译时异常"></a>编译时异常</h2><p>编译时异常是指在编译期间，就必须处理的异常，否则代码不能通过编译。</p><p><strong>常见的编译时异常包括：</strong></p><ul><li><p>SQLException 操作数据库时，查询表可能发生异常。</p></li><li><p>IOException 操作文件时，发生的异常。</p></li><li><p>FileNotFoundException 当操作一个不存在的文件时，发生异常。</p></li><li><p>ClassNotFoundException 加载类，而该类不存在时，发生异常。</p></li><li><p>EOFException 操作文件，到文件末尾，发生异常。</p></li><li><p>IllegalArguementException 参数异常。</p></li></ul><h2 id="处理异常过程"><a href="#处理异常过程" class="headerlink" title="处理异常过程"></a>处理异常过程</h2><ol><li><p>当程序运行到某一语句时，发生了异常，那么程序会先停下来；</p></li><li><p>程序会在这句代码处查看原因，生成一个合理“异常对象”，然后“抛”出；</p></li><li><p>JVM 会检测这句代码的外围是否有 <code>try...catch</code> 结构可以“捕获”它；</p></li><li><p>如果可以捕获，那么程序在处理完异常后，继续下面的运行，不会崩溃；</p></li><li><p>如果不能捕获，那么会把这个异常继续抛给“上级”；</p></li><li><p>如果“上级”能处理，那么程序从“上级”处理完的代码后面继续运行；</p></li><li><p>如果“上级”也不能处理，那么继续往上抛，一直到达 JVM，那么就“崩溃”；</p></li></ol><h2 id="异常处理机制"><a href="#异常处理机制" class="headerlink" title="异常处理机制"></a>异常处理机制</h2><p>异常处理就是当异常发生时，对异常处理的方式。处理方式有以下两种：</p><ul><li><p>try-catch-finally：程序在代码中捕获发生的异常，自行处理。</p></li><li><p>throws：将发生的异常抛出，交给调用者（方法）来处理，最顶级的处理着就是 JVM。</p></li></ul><h3 id="捕获异常"><a href="#捕获异常" class="headerlink" title="捕获异常"></a>捕获异常</h3><ul><li><p>try 和 catch 都不能单独使用，必须连用；finally 不能单独使用，必须和 try 一起使用。</p></li><li><p>如果没有发生异常，则顺序执行 try 块，不会进入到 catch 块。</p></li><li><p>如果发生了异常，则 try 块剩下的语句不再执行，直接进入到 catch 块。</p></li><li><p>如果有 finally 块，不论 try 块是否发生了异常，finally 块中的语句都会被执行。</p></li><li><p>finally 一般用于资源释放（资源回收），无论程序是否出现异常，最后都要资源释放。</p></li><li><p>可以有多个 catch 块，捕获不同的异常（进行不同的业务处理），要求父类异常在后，子类异常在前，如果发生异常，只会匹配一个 catch 块。</p></li><li><p>当只有在 try 或者 catch 中调用退出 JVM 的相关方法 <code>System.exit(0);</code>，此时 finally 才不会执行，否则 finally 永远会执行。</p></li><li><p>可以进行 try-finally 配合使用，这种用法相当于没有捕获异常，因此程序会直接崩溃。应用场景就是执行一段代码，不管是否发生异常，都必须执行某个业务逻辑。</p></li></ul><h3 id="抛出异常"><a href="#抛出异常" class="headerlink" title="抛出异常"></a>抛出异常</h3><ul><li><p>对于运行时异常，程序中如果没有处理，默认就是 throws 的方式处理。</p></li><li><p>在 throws 过程中，如果使用了 try-catch，就相当于处理了异常，就不必再 throws。</p></li><li><p>在方法声明中用 throws 语句可以声明抛出异常的列表，throws 后面的异常类型可以是方法中产生的异常类型，也可以是它的父类。</p></li><li><p>子类重写父类的方法时，对抛出异常的规定：子类重写的方法所抛出的异常类型，要么和父类方法抛出的异常类型一致，要么为父类方法抛出的异常类型的子类型。</p></li><li><p>如果一个方法抛出了一个运行时异常，调用者可以不用显示处理，因为 Java 有默认的处理机制。如果抛出了一个编译时异常，则调用者必须显示处理，否则程序就不能编译通过。</p></li><li><p>如果一个方法或者方法中的语句执行时可能生成某种异常，但是并不能确定如何处理这种异常，则此方法应显示地声明抛出异常，表明该方法将不对这些异常进行处理，而由该方法的调用者负责处理。</p></li></ul><h2 id="自定义异常"><a href="#自定义异常" class="headerlink" title="自定义异常"></a>自定义异常</h2><p>当程序出现了某些“错误”，但该错误信息并没有在 Throwable 子类中描述处理，这个时候可以自己设计异常类，用于描述该错误信息。</p><p><strong>自定义异常的步骤：</strong></p><ul><li><p>定义类：自定义异常类名（程序员自己写）继承 Exception 或 RuntimeException。</p></li><li><p>如果继承 Exception，属于编译时异常。</p></li><li><p>如果继承 RuntimeException，属于运行时异常。</p></li><li><p>一般情况下，自定义异常建议继承 RuntimeException，因为可以使用 Java 默认的处理机制。</p></li></ul><p><strong>throw 和 throws 的区别：</strong></p><ul><li><p>throw 是具体向外抛异常的动作，所以它是抛出一个异常实例。</p></li><li><p>throws 主要是声明这个方法会抛出这种类型的异常，使它的调用者知道要捕获这个异常。</p></li></ul><p><strong>实现代码：</strong></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        System.out.print(<span class="string">&quot;输入年龄：&quot;</span>);</span><br><span class="line">        <span class="type">int</span> <span class="variable">age</span> <span class="operator">=</span> scanner.nextInt();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 要求年龄范围在 18-120 之间，否则抛出自定义异常</span></span><br><span class="line">        <span class="keyword">if</span> (!(age &gt;= <span class="number">18</span> &amp;&amp; age &lt;= <span class="number">120</span>)) &#123;</span><br><span class="line">            <span class="comment">// 通过构造器设置信息</span></span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">AgeException</span>(<span class="string">&quot;年龄需要在 18-120 之间！&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;你的年龄范围正确。&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AgeException</span> <span class="keyword">extends</span> <span class="title class_">RuntimeException</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">AgeException</span><span class="params">(String message)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>(message);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;异常是程序中的一些错误，但并不是所有的错误都是异常，并且错误有时候是可以避免的。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="学习笔记" scheme="https://blog.lisir.me/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-    
-    <category term="Java" scheme="https://blog.lisir.me/tags/Java/"/>
-    
-    <category term="异常处理" scheme="https://blog.lisir.me/tags/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/"/>
     
   </entry>
   
