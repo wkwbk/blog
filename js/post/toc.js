@@ -15,9 +15,13 @@ function initTOC() {
       // get active index
       getActiveIndex(navSections) {
         if (!Array.isArray(navSections)) return
+        const offsetY = 20
+        const { isHideHeader, headerWrapperDom } = KEEP.utils
+        const headerH = isHideHeader ? 0 : headerWrapperDom.getBoundingClientRect().height
         let index = navSections.findIndex((element) => {
-          return element && element.getBoundingClientRect().top - 20 > 0
+          return element && element.getBoundingClientRect().top - (offsetY + headerH) > 0
         })
+
         if (index === -1) {
           index = navSections.length - 1
         } else if (index > 0) {
@@ -37,13 +41,12 @@ function initTOC() {
 
       // register TOC Nav
       registerTocNav() {
-        const isHideHeader = KEEP.theme_config?.scroll?.hide_header
         const register = (tocContainer) => {
           return [...tocContainer.querySelectorAll('.post-toc li a.nav-link')].map((element) => {
             const target = document.getElementById(
               decodeURI(element.getAttribute('href')).replace('#', '')
             )
-            KEEP.utils.title2Top4HTag(element, target, isHideHeader, 500)
+            KEEP.utils.title2Top4HTag(element, target, 500)
             return target
           })
         }

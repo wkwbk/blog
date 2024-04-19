@@ -71,7 +71,6 @@ keep-mobile()
   background-color: var(--background-color-2);
   border-top-left-radius: var(--box-border-radius);
   border-top-right-radius: var(--box-border-radius);
-keep-tablet()
 keep-mobile()
 }
 .home-content-container .home-post-list .home-post-item .home-post-item-top .home-cover {
