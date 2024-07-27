@@ -14,6 +14,8 @@
   --highlight-aqua: #458383;
   --highlight-blue: #6e95bd;
   --highlight-purple: #b18bb7;
+  --highlight-deletion: #f39090;
+  --highlight-addition: #7ccf26;
   --highlight-gutter-color: #7a979a;
   --highlight-gutter-bg-color: #273130;
   --mac-toolbar-background-color: #21252b;
@@ -38,6 +40,8 @@
     --highlight-aqua: #458383;
     --highlight-blue: #6e95bd;
     --highlight-purple: #b18bb7;
+    --highlight-deletion: #f39090;
+    --highlight-addition: #7ccf26;
     --highlight-gutter-color: #7a979a;
     --highlight-gutter-bg-color: #273130;
     --mac-toolbar-background-color: #21252b;
@@ -63,6 +67,8 @@
     --highlight-aqua: #448080;
     --highlight-blue: #6a92bb;
     --highlight-purple: #ae87b5;
+    --highlight-deletion: #eb4a4a;
+    --highlight-addition: #63a61e;
     --highlight-gutter-color: #7b989b;
     --highlight-gutter-bg-color: #26302f;
     --mac-toolbar-background-color: #1f2021;
@@ -87,6 +93,8 @@
   --highlight-aqua: #458383;
   --highlight-blue: #6e95bd;
   --highlight-purple: #b18bb7;
+  --highlight-deletion: #f39090;
+  --highlight-addition: #7ccf26;
   --highlight-gutter-color: #7a979a;
   --highlight-gutter-bg-color: #273130;
   --mac-toolbar-background-color: #21252b;
@@ -110,6 +118,8 @@
   --highlight-aqua: #448080;
   --highlight-blue: #6a92bb;
   --highlight-purple: #ae87b5;
+  --highlight-deletion: #eb4a4a;
+  --highlight-addition: #63a61e;
   --highlight-gutter-color: #7b989b;
   --highlight-gutter-bg-color: #26302f;
   --mac-toolbar-background-color: #1f2021;
