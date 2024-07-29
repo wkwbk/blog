@@ -2882,6 +2882,9 @@ figure.highlight .shrink-line:hover::before {
   box-shadow: 0 0 8px var(--shadow-color);
   transform: translateX(-50%);
 }
+.header-wrapper .header-content .right .pc .menu-list .sub-menu-list .sub-menu-item {
+  white-space: nowrap;
+}
 .header-wrapper .header-content .right .pc .menu-list .sub-menu-list .sub-menu-item .menu-text-color {
   color: var(--text-color-3) !important;
 }
